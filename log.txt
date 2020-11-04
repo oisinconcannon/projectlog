@@ -1,0 +1,12 @@
+Project log
+Week1:Researched ideas for projects
+
+Week2:more research 
+
+Week3:Idea found,wirting proposal
+
+Week4:Tweaking Proposal
+
+Week5:Fixing the necessary issues with proposal
+
+Week6:Setting up my esp32 and testing the board
