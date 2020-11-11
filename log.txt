@@ -1,12 +1,22 @@
 Project log
-Week1:Researched ideas for projects
 
-Week2:more research 
+Week1:
+Researched ideas for projects
 
-Week3:Idea found,wirting proposal
+Week2:
+more research 
 
-Week4:Tweaking Proposal
+Week3:
+Idea found,wirting proposal
 
-Week5:Fixing the necessary issues with proposal
+Week4:
+Tweaking Proposal
 
-Week6:Setting up my esp32 and testing the board
+Week5:
+Fixing the necessary issues with proposal
+
+Week6:
+Setting up my esp32 and testing the board
+Was having some trouble uploading example code to my esp32 , resolved this ny holding the boot button to allow the board to access uploading mode
+
+
