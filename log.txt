@@ -19,4 +19,5 @@ Week6:
 Setting up my esp32 and testing the board
 Was having some trouble uploading example code to my esp32 , resolved this ny holding the boot button to allow the board to access uploading mode
 
-
+Week8:
+Tweaked Proposal and fixed the issues i was asked to fix
