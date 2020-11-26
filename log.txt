@@ -7,7 +7,7 @@ Week2:
 more research 
 
 Week3:
-Idea found,wirting proposal
+Idea found,writing proposal
 
 Week4:
 Tweaking Proposal
@@ -21,3 +21,6 @@ Was having some trouble uploading example code to my esp32 , resolved this ny ho
 
 Week8:
 Tweaked Proposal and fixed the issues i was asked to fix
+
+Week 9:
+Pc problems which i am trying to fix,hopefully will get a chance to complete some work tomorrow
