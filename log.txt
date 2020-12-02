@@ -24,3 +24,6 @@ Tweaked Proposal and fixed the issues i was asked to fix
 
 Week 9:
 Pc problems which i am trying to fix,hopefully will get a chance to complete some work tomorrow
+
+Week10:
+Starting to Style my webpage with simple html, trying to figure out how to use an external html file
