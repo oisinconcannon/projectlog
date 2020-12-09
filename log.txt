@@ -27,3 +27,6 @@ Pc problems which i am trying to fix,hopefully will get a chance to complete som
 
 Week10:
 Starting to Style my webpage with simple html, trying to figure out how to use an external html file
+
+Week 11:
+Working on my Gantt chart and fixing it up to include more detail.
