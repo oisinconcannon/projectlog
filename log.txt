@@ -30,3 +30,12 @@ Starting to Style my webpage with simple html, trying to figure out how to use a
 
 Week 11:
 Working on my Gantt chart and fixing it up to include more detail.
+
+Week 13:
+Created nodeJs project and tested working project,downloaded mongoDB
+
+Week 14:
+Redesigned the webpage and entered stats into mongoDB
+
+Week 15:
+Finished project video
