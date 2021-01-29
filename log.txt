@@ -39,3 +39,8 @@ Redesigned the webpage and entered stats into mongoDB
 
 Week 15:
 Finished project video
+
+Week 16:
+
+Week17:
+signed up for amazon web services and researching app development
