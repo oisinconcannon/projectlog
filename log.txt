@@ -44,3 +44,6 @@ Week 16:
 
 Week17:
 signed up for amazon web services and researching app development
+
+Weeks 18:
+set up expo and nodejs on my phone, pushing accelerometer data to console
