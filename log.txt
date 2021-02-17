@@ -51,3 +51,6 @@ set up expo and nodejs on my phone, pushing accelerometer data to console
 Week 19:
 Decided to move away from nodejs and design an expo app instead , communicate 2 expo apps as i dont have parts yet
 just finished designing a GUI using balsamiq
+
+Week 20:
+Added multiple pages to my expo app
