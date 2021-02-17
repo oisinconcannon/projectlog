@@ -1,128 +1,134 @@
-import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  UIManager,
-  findNodeHandle,
-  TouchableOpacity,
-  Alert
-} from 'react-native';
-// import components
-import DropDown from './DropDown';
-import MyButton from './MyButton';
+import * as React from 'react';
+import { Button, View, Text, TextInput } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default class App extends React.Component {
+function HomeScreen({ navigation }) {
+  const [value, onChangeText] = React.useState('Opponent');
+    const [value1, onChangeText1] = React.useState('Venue');
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Add Fighter+"
+        onPress={() => navigation.navigate('Add Fighter')}
+      />
+      <TextInput
+     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+     onChangeText={text => onChangeText(text)}
+     value={value}
+   />
+   <TextInput
+  style={{ height: 40, borderColor: 'gray', borderWidth: 1  }}
+  onChangeText={text => onChangeText1(text)}
+  value={value1}
+/>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 
-  state = {
-    show: false,
-    position: {}
-  }
+      <Button
+        title="Start"
+        color='green'
+        onPress={() => navigation.navigate('Options')}
+      />
 
-  // handle showing the dropdown
-  showDropDown = () => {
-    if (this.button) {
-      // use the uimanager to measure the button's position in the window
-      UIManager.measure(findNodeHandle(this.button), (x, y, width, height, pageX, pageY) => {
-        const position = { left: pageX, top: pageY, width: width, height: height };
-        // setState, which updates the props that are passed to the DropDown component
-        this.setState({show: true, position: { x: pageX + (width / 2), y: pageY + (2 * height / 3) }})
-      });
-    }
-  }
+      <Button
+        borderColor='#fff'
+        title="Stats"
+        color='yellow'
+        onPress={() => navigation.navigate('Stats')}
+      />
+      </View>
+    </View>
 
-  // hide the dropdown
-  hideDropDown = (item) => {
-    alert(item)
-    this.setState({show: false, position: {}})
-  }
-
-  render() {
-    return (
-
-      <View style={styles.container}>
-
-        <Text style={styles.title}>Boxing Analyser</Text>
-
-        <View style={{height: 100, width: 300, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
-
-            <MyButton
-              ref={ref => {this.button = ref}}
-              onPress={this.showDropDown}
-              title={' Choose Fighter'}
-            />
-            <MyButton
-              ref={ref => {this.button = ref}}
-              onPress={this.showDropDown}
-              title={'Choose Opponent'}
-            />
-            <MyButton
-              ref={ref => {this.button = ref}}
-              onPress={this.showDropDown}
-              title={'Choose Venue'}
-            />
-
-          </View>
-
-        <DropDown show={this.state.show} position={this.state.position} hide={this.hideDropDown}/>
-       <View style={styles.buttonDirection}>
-            <View style={styles.buttonStart}>
-            <TouchableOpacity>
-                <Text>Start</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.buttonStats}>
-              <TouchableOpacity>
-                  <Text >Stats</Text>
-                  </TouchableOpacity>
-                </View>
-             </View>
-            </View>
-
-    )
-  }
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: 'white'
+function OptionsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+      <Button
+        title="Round1"
+        onPress={() => navigation.navigate('Round 1')}
+      />
+    </View>
+  );
+}
+function Round1Screen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Round 1</Text>
 
-  },
-  buttonDirection: {
-     flexDirection: 'row',
-     padding: 10,
-  },
+    </View>
+  );
+}
+function AddFighter({ navigation }) {
+  const [value, onChangeText] = React.useState('Name');
+    const [value1, onChangeText1] = React.useState('From');
+    const [value2, onChangeText2] = React.useState('Gym');
+      const [value3, onChangeText3] = React.useState('Current Record');
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Fighter Details</Text>
+      
+       <TextInput
+      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+      onChangeText={text => onChangeText(text)}
+      value={value}
+    />
+    <TextInput
+    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+    onChangeText={text => onChangeText1(text)}
+    value={value1}
+    />
+    <TextInput
+    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+    onChangeText={text => onChangeText2(text)}
+    value={value2}
+    />
+    <TextInput
+    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+    onChangeText={text => onChangeText3(text)}
+    value={value3}
+    />
+    </View>
+  );
+}
+function StatsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Stats Screen</Text>
+      <Button
+        title="ViewStats"
+        onPress={() => navigation.navigate('View Stats')}
+      />
+    </View>
+  );
+}
+function ViewStats({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Bout Details</Text>
 
-  title: {
-     padding: 20,
-     fontSize: 50,
-     fontWeight: 'bold'
-  },
+    </View>
+  );
+}
 
-  buttonStart: {
-   backgroundColor: "green",
-   padding: 20,
-   borderRadius: 5,
-   borderColor: 'black',
-   borderWidth: 1,
+const Stack = createStackNavigator();
 
- },
- buttonStats: {
-  backgroundColor: "yellow",
-  padding: 20,
-  borderRadius: 5,
-  borderColor: 'black',
-  borderWidth: 1,
-},
-  buttonText: {
-   fontSize: 20,
-   color: '#fff',
- },
- buttonTextStats: {
-  fontSize: 20,
-  color: '#000',
-},
-});
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Boxing Analyser" component={HomeScreen} />
+        <Stack.Screen name="Options" component={OptionsScreen} />
+        <Stack.Screen name="Stats" component={StatsScreen} />
+        <Stack.Screen name="Round 1" component={Round1Screen} />
+         <Stack.Screen name="Add Fighter" component={AddFighter} />
+          <Stack.Screen name="View Stats" component={ViewStats} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
