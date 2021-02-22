@@ -54,3 +54,6 @@ just finished designing a GUI using balsamiq
 
 Week 20:
 Added multiple pages to my expo app
+
+Week 21:
+Added a picker to homepage
