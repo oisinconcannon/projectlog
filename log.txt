@@ -57,3 +57,4 @@ Added multiple pages to my expo app
 
 Week 21:
 Added a picker to homepage
+edited add fighter page
