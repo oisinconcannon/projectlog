@@ -55,7 +55,7 @@ function HomeScreen({ navigation }) {
       <Button
         borderColor='#fff'
         title="Stats"
-        color='yellow'
+        color='#ff9900'
         backgroun
 
         onPress={() => navigation.navigate('Stats')}
@@ -73,6 +73,22 @@ function OptionsScreen({ navigation }) {
       <Text>Details Screen</Text>
       <Button
         title="Round1"
+        onPress={() => navigation.navigate('Round 1')}
+      />
+      <Button
+        title="Round2"
+        onPress={() => navigation.navigate('Round 1')}
+      />
+      <Button
+        title="Round3"
+        onPress={() => navigation.navigate('Round 1')}
+      />
+      <Button
+        title="Round4"
+        onPress={() => navigation.navigate('Round 1')}
+      />
+      <Button
+        title="Round5"
         onPress={() => navigation.navigate('Round 1')}
       />
     </View>
