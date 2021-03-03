@@ -1,181 +1,109 @@
 import * as React from 'react';
-import { Button, View, Text, TextInput, Picker } from 'react-native';
+import { Text, TextInput, View, Button, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { MyPicker } from './MyPicker';
 
-function HomeScreen({ navigation }) {
-  const [value, onChangeText] = React.useState('Opponent');
-    const [value1, onChangeText1] = React.useState('Venue');
-    const [selectedValue, setSelectedValue] = React.useState("ryan");
+function HomeScreen({ navigation, route }) {
+  const [selectedName, setSelectedName] = React.useState('');
+  const [selectedFlyFrom, setSelectedFlyFrom] = React.useState('');
+  const [selectedFlyTo, setSelectedFlyTo] = React.useState('');
+
+  React.useEffect(() => {
+    if (route.params?.post) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+    }
+  }, [route.params?.post]);
+
+  const passSelectedData = (selectedData, dataType) => {
+    if(dataType == 'name'){
+      setSelectedName(selectedData);
+    }
+    if(dataType == 'flyFrom'){
+      setSelectedFlyFrom(selectedData);
+    }
+    if(dataType == 'flyTo'){
+      setSelectedFlyTo(selectedData);
+    }
+  };
+
   return (
-
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-      <View style={{flexDirection: 'row',padding:50, alignItems: 'center', justifyContent: 'space-between'}}>
-      <Picker
-        selectedValue={selectedValue}
-        style={{ height: 50, width: 150}}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-      >
-        <Picker.Item label="Devin Haney" value="devin" />
-        <Picker.Item label="Ryan Garcia" value="ryan" />
-        <Picker.Item label="Triple G" value="ggg" />
-        <Picker.Item label="Canelo Alveres" value="canelo" />
-        <Picker.Item label="Tank Davis" value="tank" />
-      </Picker>
-      <Button
-        style={{ height: 50, width: 150,}}
-        title="+"
-        color='green'
-        onPress={() => navigation.navigate('Add Fighter')}
-      />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#d0d0ff' }}>
+       <Image
+          style={{ width: '80%', height: 200 }}
+        />
+        <Text style={{ margin: 10 }}>Welcome to My Project, My Name is Oisin Concannon
+        and I have designed a useful app for fighters across all disciplines</Text>
+        <Text style={{ margin: 10 }}>{selectedName}</Text>
+        <Text style={{ margin: 10 }}>{selectedFlyFrom}</Text>
+        <Text style={{ margin: 10 }}>{selectedFlyTo}</Text>
       </View>
-        <View style={{padding:100, alignItems: 'center', justifyContent: 'center'}}>
       <Button
-        title="Add Fighter+"
-        onPress={() => navigation.navigate('Add Fighter')}
-      />
-      <TextInput
-     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-     onChangeText={text => onChangeText(text)}
-     value={value}
-   />
-   <TextInput
-  style={{ height: 40, borderColor: 'gray', borderWidth: 1  }}
-  onChangeText={text => onChangeText1(text)}
-  value={value1}
-/>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-
-      <Button
-        title="Start"
-        color='green'
-        onPress={() => navigation.navigate('Options')}
-      />
-
-      <Button
-        borderColor='#fff'
-        title="Stats"
-        color='#ff9900'
-        backgroun
-
-        onPress={() => navigation.navigate('Stats')}
-      />
-      </View>
-    </View>
-    </View>
-
-  );
-}
-
-function OptionsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Round1"
-        onPress={() => navigation.navigate('Round 1')}
-      />
-      <Button
-        title="Round2"
-        onPress={() => navigation.navigate('Round 1')}
-      />
-      <Button
-        title="Round3"
-        onPress={() => navigation.navigate('Round 1')}
-      />
-      <Button
-        title="Round4"
-        onPress={() => navigation.navigate('Round 1')}
-      />
-      <Button
-        title="Round5"
-        onPress={() => navigation.navigate('Round 1')}
+        title="Add Fighter"
+        onPress={() => navigation.navigate('LoadData', { homeCallBack: passSelectedData })}
       />
     </View>
   );
 }
-function Round1Screen({ navigation }) {
+
+function LoadDataScreen({ navigation, route }) {
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Round 1</Text>
-
-    </View>
-  );
-}
-function AddFighter({ navigation }) {
-  const [value, onChangeText] = React.useState('Name');
-    const [value1, onChangeText1] = React.useState('From');
-    const [value2, onChangeText2] = React.useState('Gym');
-      const [value3, onChangeText3] = React.useState('Current Record');
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Fighter Details</Text>
-
-       <TextInput
-      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-      onChangeText={text => onChangeText(text)}
-      value={value}
-    />
-    <TextInput
-    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-    onChangeText={text => onChangeText1(text)}
-    value={value1}
-    />
-    <TextInput
-    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-    onChangeText={text => onChangeText2(text)}
-    value={value2}
-    />
-    <TextInput
-    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-    onChangeText={text => onChangeText3(text)}
-    value={value3}
-    />
-    <Button
-      title="Add Fighter+"
-      color='green'
-      onPress={() => navigation.navigate('Boxing Analyser')}
-    />
-
-    </View>
-
-  );
-}
-function StatsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Stats Screen</Text>
+    <View style={{ flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 50
+      }}>
+      <MyPicker callBackFunction = {route.params.homeCallBack} >
+      </MyPicker>
       <Button
-        title="ViewStats"
-        onPress={() => navigation.navigate('View Stats')}
+        title="Done (go back to home page)"
+        onPress={() => {
+          navigation.goBack();
+        }}
       />
-    </View>
-  );
-}
-function ViewStats({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Bout Details</Text>
-
     </View>
   );
 }
 
 const Stack = createStackNavigator();
 
-function App() {
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Boxing Analyser" component={HomeScreen} />
-        <Stack.Screen name="Options" component={OptionsScreen} />
-        <Stack.Screen name="Stats" component={StatsScreen} />
-        <Stack.Screen name="Round 1" component={Round1Screen} />
-         <Stack.Screen name="Add Fighter" component={AddFighter} />
-          <Stack.Screen name="View Stats" component={ViewStats} />
+      <Stack.Navigator mode="modal">
+        <Stack.Screen
+          name="Home Screen"
+          component={HomeScreen}
+          options={{
+            title: 'My home',
+            headerStyle: {
+              backgroundColor: '#696969',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="LoadData"
+          component={LoadDataScreen}
+          options={{
+            title: 'Load data from node/mongoDb',
+            headerStyle: {
+              backgroundColor: '#000080',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-export default App;
