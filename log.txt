@@ -61,3 +61,6 @@ edited add fighter page
 
 Week 22:
 Added 3 tier picker, appending text box
+
+Week23:
+Re designed my home screen with images and new colour stylings
