@@ -64,3 +64,6 @@ Added 3 tier picker, appending text box
 
 Week23:
 Re designed my home screen with images and new colour stylings
+
+Week 24:
+Added 5 round pages and made some styling changes
