@@ -6,18 +6,11 @@ export const MyPicker = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState('');
   const [selectedName, setSelectedName] = useState('');
-  const [selectedGym, setSelectedGym] = useState('');
-  const [selectedFrom, setSelectedFrom] = useState('');
+  const [selectedFlyTo, setSelectedFlyTo] = useState('');
+  const [selectedFlyFrom, setSelectedFlyFrom] = useState('');
   const [whichSelection, setWhichSelection] = useState('');
-  const [listItems, setListItems] = useState([
-    <Picker.Item label="" value="" />,
-    <Picker.Item label="John" value="John" />,
-    <Picker.Item label="Joe" value="Joe" />,
-    <Picker.Item label="Galway" value="Galway" />,
-    <Picker.Item label="Dublin" value="Dublin" />,
-    <Picker.Item label="BD Galway" value="BD Galway" />,
-    <Picker.Item label="SBG Dublin" value="SBG Dublin" />
-  ]);
+  const [listItems, setListItems] = useState([]);
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -29,7 +22,7 @@ export const MyPicker = (props) => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Select Name</Text>
+            <Text style={styles.modalText}>Select Item</Text>
             <Picker
               style={{ height: 200, width: 250 }}
               selectedValue={selectedItem}
@@ -55,13 +48,13 @@ export const MyPicker = (props) => {
                     props.callBackFunction(selectedItem, whichSelection);
                     setSelectedName(selectedItem); // deferred until next re-render, so props callback runs first
                   }
-                  if(whichSelection == 'from'){
+                  if(whichSelection == 'flyFrom'){
                     props.callBackFunction(selectedItem, whichSelection);
-                    setSelectedFrom(selectedItem);
+                    setSelectedFlyFrom(selectedItem);
                   }
-                  if(whichSelection == 'gym'){
+                  if(whichSelection == 'flyTo'){
                     props.callBackFunction(selectedItem, whichSelection);
-                    setSelectedGym(selectedItem);
+                    setSelectedFlyTo(selectedItem);
                   }
                 }}>
                 <Text style={styles.textStyle}>OK</Text>
@@ -75,36 +68,54 @@ export const MyPicker = (props) => {
         <TouchableHighlight
           style={styles.openButton}
           onPress={() => {
+            var listData = [];
+            listData.push(<Picker.Item label="" value="" />);
+            for(var ii = 0; ii < props.dataToLoad.names.length; ii++){
+              listData.push(<Picker.Item label={props.dataToLoad.names[ii]} value={props.dataToLoad.names[ii]}  key={ii} />);
+            }
+            setListItems(listData);
             setModalVisible(true);
             setWhichSelection('name');
           }}>
           <Text style={styles.textStyle}>Select Name</Text>
         </TouchableHighlight>
-        <Text style={{ ...styles.openButton, backgroundColor: '#e0e0e0', width: 125, textAlign: 'left', marginLeft: 10 }}>{selectedName}</Text>
+        <Text style={styles.displayText}>{selectedName}</Text>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
         <TouchableHighlight
           style={styles.openButton}
           onPress={() => {
+            var listData = [];
+            listData.push(<Picker.Item label="" value="" />);
+            for(var ii = 0; ii < props.dataToLoad.flyFrom.length; ii++){
+              listData.push(<Picker.Item label={props.dataToLoad.flyFrom[ii]} value={props.dataToLoad.flyFrom[ii]}  key={ii} />);
+            }
+            setListItems(listData);
             setModalVisible(true);
-            setWhichSelection('from');
+            setWhichSelection('flyFrom');
           }}>
-          <Text style={styles.textStyle}>Select where your from</Text>
+          <Text style={styles.textStyle}>Select From</Text>
         </TouchableHighlight>
-        <Text style={{ ...styles.openButton, backgroundColor: '#e0e0e0', width: 125, textAlign: 'left', marginLeft: 10 }}>{selectedFrom}</Text>
+        <Text style={styles.displayText}>{selectedFlyFrom}</Text>
       </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
         <TouchableHighlight
           style={styles.openButton}
           onPress={() => {
+            var listData = [];
+            listData.push(<Picker.Item label="" value="" />);
+            for(var ii = 0; ii < props.dataToLoad.flyTo.length; ii++){
+              listData.push(<Picker.Item label={props.dataToLoad.flyTo[ii]} value={props.dataToLoad.flyTo[ii]} key={ii} />);
+            }
+            setListItems(listData);
             setModalVisible(true);
-            setWhichSelection('gym');
+            setWhichSelection('flyTo');
           }}>
-          <Text style={styles.textStyle}>Select gym</Text>
+          <Text style={styles.textStyle}>Select Gym</Text>
         </TouchableHighlight>
-        <Text style={{  ...styles.openButton, backgroundColor: '#e0e0e0', width: 125, textAlign: 'left', marginLeft: 10 }}>{selectedGym}</Text>
+        <Text style={styles.displayText}>{selectedFlyTo}</Text>
+      </View>
     </View>
-  </View>
   );
 }
 
@@ -129,8 +140,22 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  displayText: {
+    backgroundColor: '#2196F3',
+    borderColor: '#408040',
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 10,
+    width: 125,
+    marginTop: 10,
+    textAlign: 'left',
+    marginLeft: 10,
+    elevation: 2
+  },
   openButton: {
-    backgroundColor: '#F194FF',
+    backgroundColor: '#40a040',
+    borderWidth: 2,
+    borderColor: '#408040',
     borderRadius: 20,
     padding: 10,
     width: 125,
