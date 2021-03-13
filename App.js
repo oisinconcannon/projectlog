@@ -68,11 +68,18 @@ function HomeScreen({ navigation, route }) {
         <Text style={styles.displayText}>{selectedFlyFrom}</Text>
         <Text style={styles.displayText}>{selectedFlyTo}</Text>
       </View>
-      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 40, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
+      <View style={{flexDirection:'row'}}>
+      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style ={{fontSize:15}} onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
           Select Fighter
         </Text>
       </View>
+      <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+    <Text style ={{fontSize:15}}onPress={() => navigation.navigate('Round1', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
+      Start
+    </Text>
+    </View>
+    </View>
     </View>
   );
 }
@@ -86,14 +93,154 @@ function LoadDataScreen({ navigation, route }) {
     <View style={{ flex: 1,
                    justifyContent: 'center',
                    alignItems: 'center',
-                   backgroundColor: '#1e90ff',
+                   backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
       <MyPicker callBackFunction = {route.params.homeCallBack} dataToLoad = {route.params.theDbData} >
       </MyPicker>
       <View style={{ padding: 5, marginTop: 50, backgroundColor: '#c0c0c0', borderColor: '#6060ff', borderWidth: 2, borderRadius: 10, }} >
-        <Text onPress={() => navigation.goBack()}>
-          Done (back to Home screen)
+
+        <Text style ={{fontSize:30}} onPress={() => navigation.goBack()}>
+        Enter Fighter
+        </Text>
+
+      </View>
+    </View>
+  );
+}
+
+function Round1Screen({ navigation, route }) {
+
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() => alert("Round Started")}>
+                 Start Round
+                 </Text>
+
+
+                 </View>
+                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
+                 Stop Round
+                 </Text>
+                 </View>
+      <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2')}>
+        Next Round
+        </Text>
+      </View>
+    </View>
+  );
+}
+function Round2Screen({ navigation, route }) {
+
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() => alert("Round Started")}>
+                 Start Round
+                 </Text>
+                 </View>
+                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
+                 Stop Round
+                 </Text>
+                 </View>
+      <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3')}>
+        Next Round
+        </Text>
+      </View>
+    </View>
+  );
+}
+function Round3Screen({ navigation, route }) {
+
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() => alert("Round Started")}>
+                 Start Round
+                 </Text>
+                 </View>
+                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
+                 Stop Round
+                 </Text>
+                 </View>
+      <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round4')}>
+        Next Round
+        </Text>
+      </View>
+    </View>
+  );
+}
+function Round4Screen({ navigation, route }) {
+
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() => alert("Round Started")}>
+                 Start Round
+                 </Text>
+                 </View>
+                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
+                 Stop Round
+                 </Text>
+                 </View>
+      <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round5')}>
+        Next Round
+        </Text>
+      </View>
+    </View>
+  );
+}
+function Round5Screen({ navigation, route }) {
+
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() => alert("Round Started")}>
+                 Start Round
+                 </Text>
+                 </View>
+                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
+                 Stop Round
+                 </Text>
+                 </View>
+      <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Home')}>
+        Next Round
         </Text>
       </View>
     </View>
@@ -127,7 +274,87 @@ export default function App() {
             title: 'Load server data',
             backgroundColor: '#1e90ff',
             headerStyle: {
-              backgroundColor: '#000080',
+              backgroundColor: '#778899',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Round1"
+          component={Round1Screen}
+          options={{
+            title: 'Round 1',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#778899',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Round2"
+          component={Round2Screen}
+          options={{
+            title: 'Round 2',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#778899',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Round3"
+          component={Round3Screen}
+          options={{
+            title: 'Round 3',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#778899',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Round4"
+          component={Round4Screen}
+          options={{
+            title: 'Round 4',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#778899',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Round5"
+          component={Round5Screen}
+          options={{
+            title: 'Round 5',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#778899',
               height: 50,
             },
             headerTintColor: '#fff',
@@ -140,7 +367,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
 const styles = StyleSheet.create({
   displayText: {
     backgroundColor: '#778899',
