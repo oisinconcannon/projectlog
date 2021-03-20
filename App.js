@@ -80,8 +80,23 @@ function HomeScreen({ navigation, route }) {
       Start
     </Text>
     </View>
+      <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+    <Text style ={{fontSize:15}} onPress={() => {
+      fetch('http://192.168.1.53:8000/savePostTextToMongo/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({post: selectedName})
+      });
+    }}>
+    Create Fighter
+    </Text>
     </View>
     </View>
+    </View>
+
   );
 }
 
@@ -102,7 +117,7 @@ function LoadDataScreen({ navigation, route }) {
       <View style={{ padding: 5, marginTop: 50, backgroundColor: '#c0c0c0', borderColor: '#6060ff', borderWidth: 2, borderRadius: 10, }} >
 
         <Text style ={{fontSize:30}} onPress={() => navigation.goBack()}>
-        Enter Fighter
+        Continue
         </Text>
 
       </View>
