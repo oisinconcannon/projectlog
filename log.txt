@@ -67,3 +67,6 @@ Re designed my home screen with images and new colour stylings
 
 Week 24:
 Added 5 round pages and made some styling changes
+
+Week 25:
+Added charts to my project
