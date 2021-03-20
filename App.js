@@ -3,6 +3,7 @@ import { Text, TextInput, View, Button, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MyPicker } from './MyPicker';
+import { MyChart } from './MyChart';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings([ // https://reactnavigation.org/docs/troubleshooting/
@@ -239,8 +240,48 @@ function Round5Screen({ navigation, route }) {
                  </Text>
                  </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Home')}>
-        Next Round
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('ChartTheData')}>
+        View Stats
+        </Text>
+      </View>
+    </View>
+  );
+}
+function ChartTheData({ navigation, route }) {
+//  if(route.params.show == false){
+  //  return null;
+  //}
+
+  let lineData = {interpolation: 'T', data: [0, 5, 10, 15, 10, 5, 0, -5],
+                  nativeData: {
+                    labels: ["January", "February", "March", "April", "May", "June"],
+                    datasets: [
+                    {
+                      data: [
+                        Math.random() * 90,
+                        Math.random() * 100,
+                        Math.random() * 100,
+                        Math.random() * 100,
+                        Math.random() * 100,
+                        Math.random() * 100
+                      ]
+                    }
+                  ]
+                }
+  };
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#1e90ff',
+                   paddingBottom: 50
+                 }}>
+      <View style={{ backgroundColor: '#ffffff', borderColor: '#000000', borderWidth: 2, padding: 2 }} >
+        <MyChart dataToChart = {lineData} > </MyChart>
+      </View>
+      <View style={{ padding: 5, marginTop: 10, backgroundColor: '#c0c0c0', borderColor: '#6060ff', borderWidth: 2, borderRadius: 10, }} >
+        <Text onPress={() => navigation.goBack()}>
+          Done (back to Home screen)
         </Text>
       </View>
     </View>
@@ -355,6 +396,22 @@ export default function App() {
             backgroundColor: '#1e90ff',
             headerStyle: {
               backgroundColor: '#778899',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="ChartTheData"
+          component={ChartTheData}
+          options={{
+            title: 'Chart',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#000080',
               height: 50,
             },
             headerTintColor: '#fff',
