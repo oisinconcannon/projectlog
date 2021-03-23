@@ -11,10 +11,22 @@ YellowBox.ignoreWarnings([ // https://reactnavigation.org/docs/troubleshooting/
 ]);
 
 function HomeScreen({ navigation, route }) {
-  const [selectedName, setSelectedName] = React.useState('');
-  const [selectedFlyFrom, setSelectedFlyFrom] = React.useState('');
-  const [selectedFlyTo, setSelectedFlyTo] = React.useState('');
+  const [selectedName, setSelectedName] = React.useState(' ');
+  const [selectedFlyFrom, setSelectedFlyFrom] = React.useState(' ');
+  const [selectedFlyTo, setSelectedFlyTo] = React.useState(' ');
   const [dbData, setDbData] = React.useState('');
+
+let fightData = {
+        name: selectedName,
+        address: selectedFlyFrom,
+        gymName: selectedFlyTo,
+        opponentName: "John",
+        opponentAddress: "Dublin",
+        opponentGymName: "SBG",
+        eventName: "Clash on the Hill",
+        dateTime: "12-02-21",
+        punchInfo: [45, 32, 32, 25, 20]
+}
 
   useEffect(() => {
     fetch('http://192.168.1.53:8000/getAppNames/', {
@@ -88,7 +100,7 @@ function HomeScreen({ navigation, route }) {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({post: selectedName})
+        body: JSON.stringify(fightData)
       });
     }}>
     Create Fighter
