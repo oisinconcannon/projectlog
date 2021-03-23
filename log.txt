@@ -71,3 +71,6 @@ Added 5 round pages and made some styling changes
 Week 25:
 Added charts to my project
 Integrated mongoDB and now pushing users name to database
+
+Week 26:
+Adding more elements to mongodb
