@@ -271,6 +271,47 @@ function Round5Screen({ navigation, route }) {
         View Stats
         </Text>
       </View>
+      <View style={{ padding: 5, backgroundColor: '#FFA500', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Details')}>
+        View Details
+        </Text>
+      </View>
+    </View>
+  );
+}
+function DetailsScreen({ navigation, route }) {
+  const [dbDataGet, setDbDataGet] = React.useState('');
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}} onPress={() => {
+                   fetch('http://192.168.1.53:8000/getAppPosts/', {
+                     method: 'POST',
+                     headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify({})
+                 })
+                 .then((response) => response.json())
+                 .then((json) => {
+                   console.log(json);
+
+                   console.log(dbDataGet);
+                 })
+                 .catch((error) => {
+                   console.error(error);
+                 });
+               }}>
+                 Pull Database Details
+                 </Text>
+                 </View>
+
     </View>
   );
 }
@@ -436,6 +477,22 @@ export default function App() {
           component={ChartTheData}
           options={{
             title: 'Chart',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#000080',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={{
+            title: 'Details',
             backgroundColor: '#1e90ff',
             headerStyle: {
               backgroundColor: '#000080',
