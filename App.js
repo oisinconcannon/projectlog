@@ -16,20 +16,10 @@ function HomeScreen({ navigation, route }) {
   const [selectedFlyTo, setSelectedFlyTo] = React.useState(' ');
   const [dbData, setDbData] = React.useState('');
 
-let fightData = {
-        name: selectedName,
-        address: selectedFlyFrom,
-        gymName: selectedFlyTo,
-        opponentName: "John",
-        opponentAddress: "Dublin",
-        opponentGymName: "SBG",
-        eventName: "Clash on the Hill",
-        dateTime: "12-02-21",
-        punchInfo: [45, 32, 32, 25, 20]
-}
+
 
   useEffect(() => {
-    fetch('http://192.168.1.53:8000/getAppNames/', {
+    fetch('http://192.168.1.53:8000/getAppNames', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -41,6 +31,7 @@ let fightData = {
     .then((json) => {
       if(json){
         setDbData(json);
+        console.log(dbData);
       } else {
         setDbData({names: [""], flyFrom: [""], flyTo: [""]});
         alert("Bad data from backend server!");
@@ -64,7 +55,17 @@ let fightData = {
       setSelectedFlyTo(selectedData);
     }
   };
-
+  let fightData = {
+          name: selectedName,
+          address: selectedFlyFrom,
+          gymName: selectedFlyTo,
+          opponentName: "John",
+          opponentAddress: "Dublin",
+          opponentGymName: "SBG",
+          eventName: "Clash on the Hill",
+          dateTime: "12-02-21",
+          punchInfo: [45, 32, 32, 25, 20]
+  }
   return (
     <View style={{ flex: 1,
                    alignItems: 'center',
@@ -281,6 +282,7 @@ function Round5Screen({ navigation, route }) {
 }
 function DetailsScreen({ navigation, route }) {
   const [dbDataGet, setDbDataGet] = React.useState('');
+  const [search, setSearch] = React.useState('');
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -288,6 +290,11 @@ function DetailsScreen({ navigation, route }) {
                    backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
+                 <TextInput
+                  placeholder="Enter Name of Fighter"
+                  onChangeText={search => setSearch(search)}
+                  value={search}
+                />
                    <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                  <Text style ={{fontSize:20}} onPress={() => {
                    fetch('http://192.168.1.53:8000/getAppPosts/', {
@@ -296,13 +303,12 @@ function DetailsScreen({ navigation, route }) {
                      Accept: 'application/json',
                      'Content-Type': 'application/json'
                    },
-                   body: JSON.stringify({})
+                   body: JSON.stringify({search})
                  })
                  .then((response) => response.json())
                  .then((json) => {
                    console.log(json);
 
-                   console.log(dbDataGet);
                  })
                  .catch((error) => {
                    console.error(error);
