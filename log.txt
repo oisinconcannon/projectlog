@@ -75,3 +75,6 @@ Integrated mongoDB and now pushing users name to database
 Week 26:
 Adding more elements to mongodb
 Retrieving objects from mongoDB
+
+Week 27:
+Added Search feature to seacrh previous bouts by name in mongoDB
