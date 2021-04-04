@@ -114,6 +114,7 @@ function HomeScreen({ navigation, route }) {
 }
 
 function LoadDataScreen({ navigation, route }) {
+const [search, setSearch] = React.useState('');
   if(route.params.show == false){
     return null;
   }
@@ -128,7 +129,27 @@ function LoadDataScreen({ navigation, route }) {
       <MyPicker callBackFunction = {route.params.homeCallBack} dataToLoad = {route.params.theDbData} >
       </MyPicker>
       <View style={{ padding: 5, marginTop: 50, backgroundColor: '#c0c0c0', borderColor: '#6060ff', borderWidth: 2, borderRadius: 10, }} >
-
+      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <TextInput
+       placeholder="Enter Name of Opponent"
+       onChangeText={search => setSearch(search)}
+       value={search}
+      />
+      </View>
+      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <TextInput
+       placeholder="Enter Name of Opponent Gym"
+       onChangeText={search => setSearch(search)}
+       value={search}
+     />
+     </View>
+     <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+     <TextInput
+      placeholder="Enter Name of Event Name"
+      onChangeText={search => setSearch(search)}
+      value={search}
+    />
+    </View>
         <Text style ={{fontSize:30}} onPress={() => navigation.goBack()}>
         Continue
         </Text>
@@ -283,6 +304,7 @@ function Round5Screen({ navigation, route }) {
 function DetailsScreen({ navigation, route }) {
   const [dbDataGet, setDbDataGet] = React.useState('');
   const [search, setSearch] = React.useState('');
+  const [chartData, setChartData] = React.useState('');
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -290,11 +312,13 @@ function DetailsScreen({ navigation, route }) {
                    backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
+                 <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                  <TextInput
                   placeholder="Enter Name of Fighter"
                   onChangeText={search => setSearch(search)}
                   value={search}
                 />
+                </View>
                    <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                  <Text style ={{fontSize:20}} onPress={() => {
                    fetch('http://192.168.1.53:8000/getAppPosts/', {
@@ -307,7 +331,8 @@ function DetailsScreen({ navigation, route }) {
                  })
                  .then((response) => response.json())
                  .then((json) => {
-                   console.log(json);
+                   console.log(json.posts[0].punchInfo);
+                   setChartData(json.posts[0].punchInfo);
 
                  })
                  .catch((error) => {
@@ -316,7 +341,13 @@ function DetailsScreen({ navigation, route }) {
                }}>
                  Pull Database Details
                  </Text>
+
                  </View>
+                 <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                   <Text style ={{fontSize:20}} onPress={() =>navigation.navigate('ChartTheData',{ paramKey:chartData})}>
+                     View The Charts
+                     </Text>
+                     </View>
 
     </View>
   );
@@ -326,18 +357,18 @@ function ChartTheData({ navigation, route }) {
   //  return null;
   //}
 
-  let lineData = {interpolation: 'T', data: [0, 5, 10, 15, 10, 5, 0, -5],
+const [chartData, setChartData] = React.useState(route.params.paramKey);
+  let lineData = {interpolation: 'T', data: chartData,
                   nativeData: {
-                    labels: ["January", "February", "March", "April", "May", "June"],
+                    labels: ["Round1", "Round2", "Round3", "Round4", "Round5"],
                     datasets: [
                     {
                       data: [
-                        Math.random() * 90,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100
+                        chartData[0],
+                        chartData[1],
+                        chartData[2],
+                        chartData[3],
+                        chartData[4]
                       ]
                     }
                   ]
