@@ -78,3 +78,5 @@ Retrieving objects from mongoDB
 
 Week 27:
 Added Search feature to seacrh previous bouts by name in mongoDB
+generating charts with punch stats from mongo
+acceloremeter data coming into node
