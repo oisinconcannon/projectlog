@@ -14,6 +14,10 @@ function HomeScreen({ navigation, route }) {
   const [selectedName, setSelectedName] = React.useState(' ');
   const [selectedFlyFrom, setSelectedFlyFrom] = React.useState(' ');
   const [selectedFlyTo, setSelectedFlyTo] = React.useState(' ');
+  const [name, setName] = React.useState(' ');
+  const [address, setAddress] = React.useState(' ');
+  const [gym, setGym] = React.useState(' ');
+  const [opponent, setOpponent] = React.useState(' ');
   const [dbData, setDbData] = React.useState('');
 
 
@@ -46,7 +50,7 @@ function HomeScreen({ navigation, route }) {
 
   const passSelectedData = (selectedData, dataType) => {
     if(dataType == 'name'){
-      setSelectedName(selectedData);
+      setName(selectedData);
     }
     if(dataType == 'flyFrom'){
       setSelectedFlyFrom(selectedData);
@@ -54,18 +58,28 @@ function HomeScreen({ navigation, route }) {
     if(dataType == 'flyTo'){
       setSelectedFlyTo(selectedData);
     }
+    if(dataType == 'address'){
+      setAddress(selectedData);
+    }
+    if(dataType == 'gym'){
+      setGym(selectedData);
+    }
+    if(dataType == 'opponent'){
+      setOpponent(selectedData);
+    }
+
+
   };
+
   let fightData = {
-          name: selectedName,
-          address: selectedFlyFrom,
-          gymName: selectedFlyTo,
-          opponentName: "John",
-          opponentAddress: "Dublin",
-          opponentGymName: "SBG",
-          eventName: "Clash on the Hill",
-          dateTime: "12-02-21",
+          name: name,
+          address: address,
+          gymName: gym,
+          opponentName: opponent,
+          dateTime: selectedName+"-"+selectedFlyFrom+"-"+selectedFlyTo,
           punchInfo: [45, 32, 32, 25, 20]
   }
+//  console.log(route.params.paramKey);
   return (
     <View style={{ flex: 1,
                    alignItems: 'center',
@@ -74,27 +88,115 @@ function HomeScreen({ navigation, route }) {
                    paddingBottom: 50
                  }}>
       <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#778899' }}>
+      <Text style ={{fontSize:40, color:'#fff',margin:10}}>
+        Boxing Analyser
+      </Text>
         <Image source={{uri: 'https://static01.nyt.com/images/2020/10/30/sports/30boxing01/merlin_166444809_30b6957a-ffec-4c5b-8b27-8659147ab2a7-superJumbo.jpg'}}
                style={{width: 400, height: 350}} />
         <Text style={{ margin: 10 ,color:'#fff',padding: 5,backgroundColor: '#778899',borderColor: '#fff', borderWidth: 2, borderRadius: 10}}>Boxing Analyser to allow users to monitor punch outputs. I have designed this app due to my interest in
         martial arts. I myself compete and find it very difficult to monitor output in sparring and bouts.</Text>
-        <Text style={styles.displayText}>{selectedName}</Text>
-        <Text style={styles.displayText}>{selectedFlyFrom}</Text>
-        <Text style={styles.displayText}>{selectedFlyTo}</Text>
+
       </View>
-      <View style={{flexDirection:'row'}}>
       <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style ={{fontSize:15}} onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
+        <Text style ={{fontSize:20}} onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
           Select Fighter
         </Text>
       </View>
+      <View style={{flexDirection:'row'}}>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-    <Text style ={{fontSize:15}}onPress={() => navigation.navigate('Round1', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
-      Start
+    <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
+      Start Round
     </Text>
     </View>
+      <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, marginLeft: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+    <Text style ={{fontSize:20}} onPress={() => navigation.navigate('Details', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
+    Search Database
+    </Text>
+    </View>
+    </View>
+    </View>
+
+  );
+}
+
+function LoadDataScreen({ navigation, route }) {
+const [name, setName] = React.useState('');
+const [address, setAddress] = React.useState('');
+const [gym, setGym] = React.useState('');
+const [opponent, setOpponent] = React.useState('');
+const [selectedName, setSelectedName] = React.useState(' ');
+const [selectedFlyFrom, setSelectedFlyFrom] = React.useState(' ');
+const [selectedFlyTo, setSelectedFlyTo] = React.useState(' ');
+
+const passSelectedData = (selectedData, dataType) => {
+  if(dataType == 'name'){
+    setSelectedName(selectedData);
+  }
+  if(dataType == 'flyFrom'){
+    setSelectedFlyFrom(selectedData);
+  }
+  if(dataType == 'flyTo'){
+    setSelectedFlyTo(selectedData);
+  }
+
+
+
+};
+let fightData = {
+        name: name,
+        address: address,
+        gymName: gym,
+        opponentName: opponent,
+        dateTime: selectedName+"-"+selectedFlyFrom+"-"+selectedFlyTo,
+        punchInfo: [45, 32, 32, 25, 20]
+}
+  if(route.params.show == false){
+    return null;
+  }
+
+  return (
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+
+
+
+      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <TextInput
+       placeholder="Enter Name"
+       onChangeText={setName}
+       value={name}
+      />
+      </View>
+      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <TextInput
+       placeholder="Enter Hometown"
+       onChangeText={setAddress}
+       value={address}
+     />
+     </View>
+     <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+     <TextInput
+      placeholder="Enter Name of Gym"
+      onChangeText={setGym}
+      value={gym}
+    />
+    </View>
+    <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+    <TextInput
+     placeholder="Enter Opponent Name"
+     onChangeText={setOpponent}
+     value={opponent}
+   />
+   </View>
+
+    <MyPicker callBackFunction = {passSelectedData} dataToLoad = {route.params.theDbData} >
+    </MyPicker>
       <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-    <Text style ={{fontSize:15}} onPress={() => {
+    <Text style ={{fontSize:20}} onPress={() => {
       fetch('http://192.168.1.53:8000/savePostTextToMongo/', {
         method: 'POST',
         headers: {
@@ -107,51 +209,9 @@ function HomeScreen({ navigation, route }) {
     Create Fighter
     </Text>
     </View>
-    </View>
-    </View>
-
-  );
-}
-
-function LoadDataScreen({ navigation, route }) {
-const [search, setSearch] = React.useState('');
-  if(route.params.show == false){
-    return null;
-  }
-
-  return (
-    <View style={{ flex: 1,
-                   justifyContent: 'center',
-                   alignItems: 'center',
-                   backgroundColor: '#778899',
-                   paddingBottom: 50
-                 }}>
-      <MyPicker callBackFunction = {route.params.homeCallBack} dataToLoad = {route.params.theDbData} >
-      </MyPicker>
-      <View style={{ padding: 5, marginTop: 50, backgroundColor: '#c0c0c0', borderColor: '#6060ff', borderWidth: 2, borderRadius: 10, }} >
-      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-      <TextInput
-       placeholder="Enter Name of Opponent"
-       onChangeText={search => setSearch(search)}
-       value={search}
-      />
-      </View>
-      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-      <TextInput
-       placeholder="Enter Name of Opponent Gym"
-       onChangeText={search => setSearch(search)}
-       value={search}
-     />
-     </View>
-     <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-     <TextInput
-      placeholder="Enter Name of Event Name"
-      onChangeText={search => setSearch(search)}
-      value={search}
-    />
-    </View>
-        <Text style ={{fontSize:30}} onPress={() => navigation.goBack()}>
-        Continue
+  <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style ={{fontSize:20}} onPress={() => navigation.goBack()}>
+      Return to home screen
         </Text>
 
       </View>
@@ -160,6 +220,7 @@ const [search, setSearch] = React.useState('');
 }
 
 function Round1Screen({ navigation, route }) {
+  const [punch, setPunch] = React.useState("");
 
   return (
     <View style={{ flex: 1,
@@ -173,15 +234,20 @@ function Round1Screen({ navigation, route }) {
                  Start Round
                  </Text>
 
-
                  </View>
+                 <TextInput
+                                 placeholder="Number of punches"
+                                 onChangeText={setPunch}
+                                 value={punch}
+                               />
+
                    <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                  <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
                  Stop Round
                  </Text>
                  </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2')}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2',{ paramKey:punch})}>
         Next Round
         </Text>
       </View>
@@ -190,6 +256,9 @@ function Round1Screen({ navigation, route }) {
 }
 function Round2Screen({ navigation, route }) {
 
+  const [punch, setPunch] = React.useState("");
+console.log(route.params.paramKey);
+
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -207,8 +276,13 @@ function Round2Screen({ navigation, route }) {
                  Stop Round
                  </Text>
                  </View>
+                 <TextInput
+                                 placeholder="Number of punches"
+                                 onChangeText={setPunch}
+                                 value={punch}
+                               />
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3')}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3',{ paramKey:punch})}>
         Next Round
         </Text>
       </View>
@@ -217,6 +291,8 @@ function Round2Screen({ navigation, route }) {
 }
 function Round3Screen({ navigation, route }) {
 
+  const [punch, setPunch] = React.useState("");
+  console.log(route.params.paramKey);
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -270,7 +346,22 @@ function Round4Screen({ navigation, route }) {
   );
 }
 function Round5Screen({ navigation, route }) {
+  const [selectedName, setSelectedName] = React.useState(' ');
+  const [selectedFlyFrom, setSelectedFlyFrom] = React.useState(' ');
+  const [selectedFlyTo, setSelectedFlyTo] = React.useState(' ');
+  const [dbData, setDbData] = React.useState('');
 
+  const passSelectedData = (selectedData, dataType) => {
+    if(dataType == 'name'){
+      setSelectedName(selectedData);
+    }
+    if(dataType == 'flyFrom'){
+      setSelectedFlyFrom(selectedData);
+    }
+    if(dataType == 'flyTo'){
+      setSelectedFlyTo(selectedData);
+    }
+  };
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -294,7 +385,7 @@ function Round5Screen({ navigation, route }) {
         </Text>
       </View>
       <View style={{ padding: 5, backgroundColor: '#FFA500', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Details')}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Details', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
         View Details
         </Text>
       </View>
@@ -305,6 +396,9 @@ function DetailsScreen({ navigation, route }) {
   const [dbDataGet, setDbDataGet] = React.useState('');
   const [search, setSearch] = React.useState('');
   const [chartData, setChartData] = React.useState('');
+  if(route.params.show == false){
+    return null;
+  }
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -312,14 +406,15 @@ function DetailsScreen({ navigation, route }) {
                    backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
-                 <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#778899', borderWidth: 2, borderRadius: 10, }} >
+
                  <TextInput
                   placeholder="Enter Name of Fighter"
                   onChangeText={search => setSearch(search)}
                   value={search}
                 />
                 </View>
-                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                   <View style={{ padding: 5, backgroundColor: '#FF8C00', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                  <Text style ={{fontSize:20}} onPress={() => {
                    fetch('http://192.168.1.53:8000/getAppPosts/', {
                      method: 'POST',
@@ -417,7 +512,7 @@ export default function App() {
           name="LoadData"
           component={LoadDataScreen}
           options={{
-            title: 'Load server data',
+            title: 'Create Fighter',
             backgroundColor: '#1e90ff',
             headerStyle: {
               backgroundColor: '#778899',
