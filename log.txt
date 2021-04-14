@@ -86,3 +86,4 @@ added feature to enter name,hometown,gym and opponent name into db
 
 Week 29:
 Updated gantt chart/project plan
+some screen styling changes + working on retriveing array of opponents from mongo
