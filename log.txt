@@ -83,3 +83,6 @@ acceloremeter data coming into node
 
 Week 28:
 added feature to enter name,hometown,gym and opponent name into db
+
+Week 29:
+Updated gantt chart/project plan
