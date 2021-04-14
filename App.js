@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TextInput, View, Button, Image, StyleSheet } from 'react-native';
+import { Text, TextInput, View, Button, Image, StyleSheet,ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MyPicker } from './MyPicker';
@@ -81,40 +81,47 @@ function HomeScreen({ navigation, route }) {
   }
 //  console.log(route.params.paramKey);
   return (
+    <ScrollView style={{ flex: 1,
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
     <View style={{ flex: 1,
                    alignItems: 'center',
                    justifyContent: 'center',
                    backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
-      <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#778899' }}>
+
+                 <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#778899' }}>
       <Text style ={{fontSize:40, color:'#fff',margin:10}}>
         Boxing Analyser
       </Text>
-        <Image source={{uri: 'https://static01.nyt.com/images/2020/10/30/sports/30boxing01/merlin_166444809_30b6957a-ffec-4c5b-8b27-8659147ab2a7-superJumbo.jpg'}}
-               style={{width: 400, height: 350}} />
-        <Text style={{ margin: 10 ,color:'#fff',padding: 5,backgroundColor: '#778899',borderColor: '#fff', borderWidth: 2, borderRadius: 10}}>Boxing Analyser to allow users to monitor punch outputs. I have designed this app due to my interest in
-        martial arts. I myself compete and find it very difficult to monitor output in sparring and bouts.</Text>
+
+        <Image source={require('./box4.jpg')}
+               style={{width: 550, height: 350}} />
+        <Text style={{ margin: 10 ,color:'#fff',padding: 5,backgroundColor: '#778899',borderColor: '#fff', borderWidth: 2, borderRadius: 10}}>Monitor your punch Output using the Boxing Analyser</Text>
 
       </View>
+
+        <View style={{flexDirection:'row'}}>
       <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
         <Text style ={{fontSize:20}} onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
           Select Fighter
         </Text>
       </View>
-      <View style={{flexDirection:'row'}}>
-      <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-    <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
-      Start Round
-    </Text>
-    </View>
+
+
       <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, marginLeft: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
     <Text style ={{fontSize:20}} onPress={() => navigation.navigate('Details', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
     Search Database
     </Text>
     </View>
+
     </View>
+
     </View>
+    </ScrollView>
+
 
   );
 }
@@ -209,12 +216,11 @@ let fightData = {
     Create Fighter
     </Text>
     </View>
-  <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style ={{fontSize:20}} onPress={() => navigation.goBack()}>
-      Return to home screen
-        </Text>
-
-      </View>
+    <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+  <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1')}>
+    Start Round
+  </Text>
+  </View>
     </View>
   );
 }
@@ -396,6 +402,8 @@ function DetailsScreen({ navigation, route }) {
   const [dbDataGet, setDbDataGet] = React.useState('');
   const [search, setSearch] = React.useState('');
   const [chartData, setChartData] = React.useState('');
+  const [results, setResults] = React.useState([{}]);
+  var tempArray=[];
   if(route.params.show == false){
     return null;
   }
@@ -426,8 +434,19 @@ function DetailsScreen({ navigation, route }) {
                  })
                  .then((response) => response.json())
                  .then((json) => {
-                   console.log(json.posts[0].punchInfo);
+                   console.log(json.posts);
+                   var i =json.posts.length -1;
+                  // setResults(json.posts[0].opponentName]);
                    setChartData(json.posts[0].punchInfo);
+                   console.log(json.posts.length);
+                   for(let index =0; index<=i; index++){
+                    // console.log(json.posts[index].opponentName);
+                     tempArray[index]=json.posts[index].opponentName;
+                     console.log("tempArray" + tempArray[index])
+                  }
+                   console.log(tempArray);
+                   setResults(tempArray);
+                   console.log(results);
 
                  })
                  .catch((error) => {
@@ -443,6 +462,7 @@ function DetailsScreen({ navigation, route }) {
                      View The Charts
                      </Text>
                      </View>
+                     <Text>{tempArray}</Text>
 
     </View>
   );
