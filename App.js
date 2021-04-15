@@ -226,8 +226,8 @@ let fightData = {
 }
 
 function Round1Screen({ navigation, route }) {
-  const [punch, setPunch] = React.useState("");
-
+  const [punch, setPunch] = React.useState([{round1:"0",round2:"0",round3:"0",round4:"0",round5:"0"}]);
+var tempPunch=[];
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -241,30 +241,50 @@ function Round1Screen({ navigation, route }) {
                  </Text>
 
                  </View>
-                 <TextInput
-                                 placeholder="Number of punches"
-                                 onChangeText={setPunch}
-                                 value={punch}
-                               />
+
 
                    <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
+                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped \nPunch Total : " + punch)}>
                  Stop Round
                  </Text>
                  </View>
+                 <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+               <Text style ={{fontSize:20}} onPress={() => {
+                 fetch('http://192.168.1.53:8000/getPunch/', {
+                   method: 'POST',
+                   headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify({punch})
+                 })
+                 .then((response) => response.json())
+                 .then((json) => {
+                   console.log(json.punch);
+                   setPunch(json.punch);
+
+                 })
+                 .catch((error) => {
+                   console.error(error);
+                 });
+               }}>
+               Save punches
+               </Text>
+               </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
         <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2',{ paramKey:punch})}>
         Next Round
         </Text>
       </View>
+        <Text>{this}</Text>
     </View>
   );
 }
 function Round2Screen({ navigation, route }) {
 
-  const [punch, setPunch] = React.useState("");
+  const [punch, setPunch] = React.useState([{}]);
 console.log(route.params.paramKey);
-
+var tempPunch=route.params.paramKey;
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -285,10 +305,10 @@ console.log(route.params.paramKey);
                  <TextInput
                                  placeholder="Number of punches"
                                  onChangeText={setPunch}
-                                 value={punch}
+                                 value={tempPunch[1]}
                                />
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3',{ paramKey:punch})}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3',{ paramKey:tempPunch})}>
         Next Round
         </Text>
       </View>
@@ -442,11 +462,11 @@ function DetailsScreen({ navigation, route }) {
                    for(let index =0; index<=i; index++){
                     // console.log(json.posts[index].opponentName);
                      tempArray[index]=json.posts[index].opponentName;
-                     console.log("tempArray" + tempArray[index])
+                    // console.log("tempArray" + tempArray[index])
                   }
                    console.log(tempArray);
-                   setResults(tempArray);
-                   console.log(results);
+                  // setResults(tempArray);
+                  // console.log(results);
 
                  })
                  .catch((error) => {
