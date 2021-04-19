@@ -88,3 +88,6 @@ Week 29:
 Updated gantt chart/project plan
 some screen styling changes + working on retriveing array of opponents from mongo
 accelerometer data coming into expo app
+
+Week 30:
+Have punches coming in for 5 rounds and posting to charts
