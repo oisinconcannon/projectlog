@@ -217,7 +217,7 @@ let fightData = {
     </Text>
     </View>
     <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-  <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1')}>
+  <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1',{paramKey:name})}>
     Start Round
   </Text>
   </View>
@@ -226,7 +226,9 @@ let fightData = {
 }
 
 function Round1Screen({ navigation, route }) {
-  const [punch, setPunch] = React.useState([{round1:"0",round2:"0",round3:"0",round4:"0",round5:"0"}]);
+  const [name, setName] = React.useState(route.params.paramKey);
+  const [round1, setRound1] = React.useState(null);
+
 var tempPunch=[];
   return (
     <View style={{ flex: 1,
@@ -250,18 +252,18 @@ var tempPunch=[];
                  </View>
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
-                 fetch('http://192.168.1.53:8000/getPunch/', {
+                 fetch('http://192.168.1.53:8000/getPunchs/', {
                    method: 'POST',
                    headers: {
                      Accept: 'application/json',
                      'Content-Type': 'application/json'
                    },
-                   body: JSON.stringify({punch})
+                   body: JSON.stringify()
                  })
                  .then((response) => response.json())
                  .then((json) => {
                    console.log(json.punch);
-                   setPunch(json.punch);
+                   setRound1(json.punch);
 
                  })
                  .catch((error) => {
@@ -272,7 +274,7 @@ var tempPunch=[];
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2',{ paramKey:punch})}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2', {paramName:name, round1: round1})}>
         Next Round
         </Text>
       </View>
@@ -282,9 +284,9 @@ var tempPunch=[];
 }
 function Round2Screen({ navigation, route }) {
 
-  const [punch, setPunch] = React.useState([{}]);
-console.log(route.params.paramKey);
-var tempPunch=route.params.paramKey;
+  const [name, setName] = React.useState(route.params.paramKey);
+  const [round1, setRound1] = React.useState(route.params.round1);
+  const [round2, setRound2] = React.useState(null);
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -302,13 +304,31 @@ var tempPunch=route.params.paramKey;
                  Stop Round
                  </Text>
                  </View>
-                 <TextInput
-                                 placeholder="Number of punches"
-                                 onChangeText={setPunch}
-                                 value={tempPunch[1]}
-                               />
+                 <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+               <Text style ={{fontSize:20}} onPress={() => {
+                 fetch('http://192.168.1.53:8000/getPunchs/', {
+                   method: 'POST',
+                   headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify()
+                 })
+                 .then((response) => response.json())
+                 .then((json) => {
+                   console.log(json.punch);
+                   setRound2(json.punch);
+
+                 })
+                 .catch((error) => {
+                   console.error(error);
+                 });
+               }}>
+               Save punches
+               </Text>
+               </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3',{ paramKey:tempPunch})}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3', {paramName:name, round1: round1,round2: round2})}>
         Next Round
         </Text>
       </View>
@@ -317,8 +337,10 @@ var tempPunch=route.params.paramKey;
 }
 function Round3Screen({ navigation, route }) {
 
-  const [punch, setPunch] = React.useState("");
-  console.log(route.params.paramKey);
+  const [name, setName] = React.useState(route.params.paramKey);
+  const [round1, setRound1] = React.useState(route.params.round1);
+  const [round2, setRound2] = React.useState(route.params.round2);
+  const [round3, setRound3] = React.useState(null);
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -336,8 +358,31 @@ function Round3Screen({ navigation, route }) {
                  Stop Round
                  </Text>
                  </View>
+                 <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+               <Text style ={{fontSize:20}} onPress={() => {
+                 fetch('http://192.168.1.53:8000/getPunchs/', {
+                   method: 'POST',
+                   headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify()
+                 })
+                 .then((response) => response.json())
+                 .then((json) => {
+                   console.log(json.punch);
+                   setRound3(json.punch);
+
+                 })
+                 .catch((error) => {
+                   console.error(error);
+                 });
+               }}>
+               Save punches
+               </Text>
+               </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round4')}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round4',{paramName:name, round1: round1,round2: round2,round3:round3})}>
         Next Round
         </Text>
       </View>
@@ -346,6 +391,11 @@ function Round3Screen({ navigation, route }) {
 }
 function Round4Screen({ navigation, route }) {
 
+    const [name, setName] = React.useState(route.params.paramKey);
+    const [round1, setRound1] = React.useState(route.params.round1);
+    const [round2, setRound2] = React.useState(route.params.round2);
+    const [round3, setRound3] = React.useState(route.params.round3);
+    const [round4, setRound4] = React.useState(null);
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -363,8 +413,31 @@ function Round4Screen({ navigation, route }) {
                  Stop Round
                  </Text>
                  </View>
+                 <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+               <Text style ={{fontSize:20}} onPress={() => {
+                 fetch('http://192.168.1.53:8000/getPunchs/', {
+                   method: 'POST',
+                   headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify()
+                 })
+                 .then((response) => response.json())
+                 .then((json) => {
+                   console.log(json.punch);
+                   setRound4(json.punch);
+
+                 })
+                 .catch((error) => {
+                   console.error(error);
+                 });
+               }}>
+               Save punches
+               </Text>
+               </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round5')}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round5',{paramName:name, round1: round1,round2: round2,round3:round3,round4:round4})}>
         Next Round
         </Text>
       </View>
@@ -372,11 +445,14 @@ function Round4Screen({ navigation, route }) {
   );
 }
 function Round5Screen({ navigation, route }) {
-  const [selectedName, setSelectedName] = React.useState(' ');
-  const [selectedFlyFrom, setSelectedFlyFrom] = React.useState(' ');
-  const [selectedFlyTo, setSelectedFlyTo] = React.useState(' ');
+  const [name, setName] = React.useState(route.params.paramName);
+  const [round1, setRound1] = React.useState(route.params.round1);
+  const [round2, setRound2] = React.useState(route.params.round2);
+  const [round3, setRound3] = React.useState(route.params.round3);
+  const [round4, setRound4] = React.useState(route.params.round4);
+  const [round5, setRound5] = React.useState(null);
   const [dbData, setDbData] = React.useState('');
-
+  const [chartData, setChartData] = React.useState([route.params.round1,route.params.round2,route.params.round3,route.params.round4,round5]);
   const passSelectedData = (selectedData, dataType) => {
     if(dataType == 'name'){
       setSelectedName(selectedData);
@@ -405,13 +481,37 @@ function Round5Screen({ navigation, route }) {
                  Stop Round
                  </Text>
                  </View>
+                 <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+               <Text style ={{fontSize:20}} onPress={() => {
+                 fetch('http://192.168.1.53:8000/getPunchs/', {
+                   method: 'POST',
+                   headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify()
+                 })
+                 .then((response) => response.json())
+                 .then((json) => {
+                   console.log(json.punch);
+                   setRound5(json.punch);
+                   setChartData([route.params.round1,route.params.round2,route.params.round3,route.params.round4,round5])
+
+                 })
+                 .catch((error) => {
+                   console.error(error);
+                 });
+               }}>
+               Save punches
+               </Text>
+               </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('ChartTheData')}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('ChartTheData',{paramName:name, paramKey:chartData})}>
         View Stats
         </Text>
       </View>
       <View style={{ padding: 5, backgroundColor: '#FFA500', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Details', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Details', {paramName:name, paramKey:chartData})}>
         View Details
         </Text>
       </View>
@@ -422,11 +522,15 @@ function DetailsScreen({ navigation, route }) {
   const [dbDataGet, setDbDataGet] = React.useState('');
   const [search, setSearch] = React.useState('');
   const [chartData, setChartData] = React.useState('');
-  const [results, setResults] = React.useState([{}]);
+  const [results, setResults] = React.useState([route.params.round1,route.params.round2,route.params.round3,route.params.round4,route.params.round5]);
   var tempArray=[];
-  if(route.params.show == false){
-    return null;
-  }
+  console.log("Name"+route.params.paramName);
+  console.log("R1"+route.params.round1);
+  console.log("R2"+route.params.round2);
+  console.log("R3"+route.params.round3);
+  console.log("R4"+route.params.round4);
+  console.log("R5"+route.params.round5);
+  console.log(results);
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -493,6 +597,7 @@ function ChartTheData({ navigation, route }) {
   //}
 
 const [chartData, setChartData] = React.useState(route.params.paramKey);
+console.log(chartData);
   let lineData = {interpolation: 'T', data: chartData,
                   nativeData: {
                     labels: ["Round1", "Round2", "Round3", "Round4", "Round5"],
