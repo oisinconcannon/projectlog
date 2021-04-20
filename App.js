@@ -171,28 +171,28 @@ let fightData = {
 
 
 
-      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
       <TextInput
        placeholder="Enter Name"
        onChangeText={setName}
        value={name}
       />
       </View>
-      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
       <TextInput
        placeholder="Enter Hometown"
        onChangeText={setAddress}
        value={address}
      />
      </View>
-     <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+     <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
      <TextInput
       placeholder="Enter Name of Gym"
       onChangeText={setGym}
       value={gym}
     />
     </View>
-    <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+    <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
     <TextInput
      placeholder="Enter Opponent Name"
      onChangeText={setOpponent}
@@ -202,22 +202,9 @@ let fightData = {
 
     <MyPicker callBackFunction = {passSelectedData} dataToLoad = {route.params.theDbData} >
     </MyPicker>
-      <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-    <Text style ={{fontSize:20}} onPress={() => {
-      fetch('http://192.168.1.53:8000/savePostTextToMongo/', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(fightData)
-      });
-    }}>
-    Create Fighter
-    </Text>
-    </View>
+
     <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-  <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1',{paramKey:name})}>
+  <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1',{paramKey:name,userDetails:fightData})}>
     Start Round
   </Text>
   </View>
@@ -226,6 +213,7 @@ let fightData = {
 }
 
 function Round1Screen({ navigation, route }) {
+  const [fightData, setFightData] = React.useState(route.params.userDetails);
   const [name, setName] = React.useState(route.params.paramKey);
   const [round1, setRound1] = React.useState(null);
 
@@ -274,7 +262,7 @@ var tempPunch=[];
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2', {paramName:name, round1: round1})}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2', {paramName:name, round1: round1,userDetails:fightData})}>
         Next Round
         </Text>
       </View>
@@ -284,6 +272,7 @@ var tempPunch=[];
 }
 function Round2Screen({ navigation, route }) {
 
+const [fightData, setFightData] = React.useState(route.params.userDetails);
   const [name, setName] = React.useState(route.params.paramKey);
   const [round1, setRound1] = React.useState(route.params.round1);
   const [round2, setRound2] = React.useState(null);
@@ -328,7 +317,7 @@ function Round2Screen({ navigation, route }) {
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3', {paramName:name, round1: round1,round2: round2})}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round3', {paramName:name, round1: round1,round2: round2,userDetails:fightData})}>
         Next Round
         </Text>
       </View>
@@ -337,6 +326,7 @@ function Round2Screen({ navigation, route }) {
 }
 function Round3Screen({ navigation, route }) {
 
+const [fightData, setFightData] = React.useState(route.params.userDetails);
   const [name, setName] = React.useState(route.params.paramKey);
   const [round1, setRound1] = React.useState(route.params.round1);
   const [round2, setRound2] = React.useState(route.params.round2);
@@ -382,7 +372,7 @@ function Round3Screen({ navigation, route }) {
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round4',{paramName:name, round1: round1,round2: round2,round3:round3})}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round4',{paramName:name, round1: round1,round2: round2,round3:round3,userDetails:fightData})}>
         Next Round
         </Text>
       </View>
@@ -391,6 +381,7 @@ function Round3Screen({ navigation, route }) {
 }
 function Round4Screen({ navigation, route }) {
 
+const [fightData, setFightData] = React.useState(route.params.userDetails);
     const [name, setName] = React.useState(route.params.paramKey);
     const [round1, setRound1] = React.useState(route.params.round1);
     const [round2, setRound2] = React.useState(route.params.round2);
@@ -437,7 +428,7 @@ function Round4Screen({ navigation, route }) {
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round5',{paramName:name, round1: round1,round2: round2,round3:round3,round4:round4})}>
+        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round5',{paramName:name, round1: round1,round2: round2,round3:round3,round4:round4,userDetails:fightData})}>
         Next Round
         </Text>
       </View>
@@ -445,6 +436,7 @@ function Round4Screen({ navigation, route }) {
   );
 }
 function Round5Screen({ navigation, route }) {
+  //const [fightData, setFightData] = React.useState(route.params.userDetails);
   const [name, setName] = React.useState(route.params.paramName);
   const [round1, setRound1] = React.useState(route.params.round1);
   const [round2, setRound2] = React.useState(route.params.round2);
@@ -453,6 +445,14 @@ function Round5Screen({ navigation, route }) {
   const [round5, setRound5] = React.useState(null);
   const [dbData, setDbData] = React.useState('');
   const [chartData, setChartData] = React.useState([route.params.round1,route.params.round2,route.params.round3,route.params.round4,round5]);
+  let fightData = {
+          name: route.params.userDetails.name,
+          address: route.params.userDetails.address,
+          gymName: route.params.userDetails.gymName,
+          opponentName: route.params.userDetails.opponentName,
+          dateTime: route.params.userDetails.dateTime,
+          punchInfo: [route.params.round1,route.params.round2,route.params.round3,route.params.round4,round5]
+  }
   const passSelectedData = (selectedData, dataType) => {
     if(dataType == 'name'){
       setSelectedName(selectedData);
@@ -506,7 +506,15 @@ function Round5Screen({ navigation, route }) {
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('ChartTheData',{paramName:name, paramKey:chartData})}>
+        <Text style={{fontSize:20}} onPress={() => {navigation.navigate('ChartTheData',{paramName:name, paramKey:chartData,userDetails:chartData});
+        fetch('http://192.168.1.53:8000/savePostTextToMongo/', {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json'
+           },
+           body: JSON.stringify(fightData)
+         });}}>
         View Stats
         </Text>
       </View>
@@ -522,15 +530,10 @@ function DetailsScreen({ navigation, route }) {
   const [dbDataGet, setDbDataGet] = React.useState('');
   const [search, setSearch] = React.useState('');
   const [chartData, setChartData] = React.useState('');
-  const [results, setResults] = React.useState([route.params.round1,route.params.round2,route.params.round3,route.params.round4,route.params.round5]);
-  var tempArray=[];
-  console.log("Name"+route.params.paramName);
-  console.log("R1"+route.params.round1);
-  console.log("R2"+route.params.round2);
-  console.log("R3"+route.params.round3);
-  console.log("R4"+route.params.round4);
-  console.log("R5"+route.params.round5);
-  console.log(results);
+
+
+
+
   return (
     <View style={{ flex: 1,
                    justifyContent: 'center',
@@ -558,17 +561,14 @@ function DetailsScreen({ navigation, route }) {
                  })
                  .then((response) => response.json())
                  .then((json) => {
-                   console.log(json.posts);
-                   var i =json.posts.length -1;
+                   console.log(json.posts[0].punchInfo);
+                  // var i =json.posts.length -1;
+                  setChartData(json.posts[0].punchInfo);
                   // setResults(json.posts[0].opponentName]);
-                   setChartData(json.posts[0].punchInfo);
+                  // setChartData(json.posts[0].punchInfo);
                    console.log(json.posts.length);
-                   for(let index =0; index<=i; index++){
-                    // console.log(json.posts[index].opponentName);
-                     tempArray[index]=json.posts[index].opponentName;
-                    // console.log("tempArray" + tempArray[index])
-                  }
-                   console.log(tempArray);
+
+
                   // setResults(tempArray);
                   // console.log(results);
 
@@ -582,11 +582,11 @@ function DetailsScreen({ navigation, route }) {
 
                  </View>
                  <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                   <Text style ={{fontSize:20}} onPress={() =>navigation.navigate('ChartTheData',{ paramKey:chartData})}>
+                   <Text style ={{fontSize:20}} onPress={() =>navigation.navigate('ChartTheData',{ userDetails:chartData})}>
                      View The Charts
                      </Text>
                      </View>
-                     <Text>{tempArray}</Text>
+
 
     </View>
   );
@@ -596,8 +596,10 @@ function ChartTheData({ navigation, route }) {
   //  return null;
   //}
 
-const [chartData, setChartData] = React.useState(route.params.paramKey);
+
+const [chartData, setChartData] = React.useState(route.params.userDetails);
 console.log(chartData);
+console.log(route.params.userDetails);
   let lineData = {interpolation: 'T', data: chartData,
                   nativeData: {
                     labels: ["Round1", "Round2", "Round3", "Round4", "Round5"],
