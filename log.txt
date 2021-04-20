@@ -91,3 +91,6 @@ accelerometer data coming into expo app
 
 Week 30:
 Have punches coming in for 5 rounds and posting to charts
+Punch count working for all rounds
+Search working for latest bout
+have the data saving correctly
