@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Text, TextInput, View, Button, Image, StyleSheet,ScrollView } from 'react-native';
+import { Text, TextInput, View, Button, Image, StyleSheet,ScrollView,TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MyPicker } from './MyPicker';
 import { MyChart } from './MyChart';
 import { YellowBox } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 YellowBox.ignoreWarnings([ // https://reactnavigation.org/docs/troubleshooting/
   'Non-serializable values were found in the navigation state',
 ]);
+
 
 function HomeScreen({ navigation, route }) {
   const [selectedName, setSelectedName] = React.useState(' ');
@@ -113,13 +115,60 @@ function HomeScreen({ navigation, route }) {
 
       <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, marginLeft: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
     <Text style ={{fontSize:20}} onPress={() => navigation.navigate('Details', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
-    Search Database
+    Search Bouts
     </Text>
     </View>
+      </View>
 
-    </View>
-
-    </View>
+</View>
+<View style={{alignItems:'center'}}>
+<View style={{flexDirection:'row', padding:5}}>
+<TouchableOpacity
+style={styles.icons}
+onPress={navigation.navigate('Home')}>
+<Icon
+name="home"
+size={60}
+color="white"
+/>
+<Text style={styles.icontext}>
+Home</Text>
+</TouchableOpacity>
+<TouchableOpacity
+style={styles.icons}
+onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
+<Icon
+name="play"
+size={60}
+color="white"
+/>
+<Text style={styles.icontext}>
+Start</Text>
+</TouchableOpacity>
+<TouchableOpacity
+style={styles.icons}
+onPress={() => navigation.navigate('Details')}>
+<Icon
+name="signal"
+size={60}
+color="white"
+/>
+<Text style={styles.icontext}>
+Stats</Text>
+</TouchableOpacity>
+<TouchableOpacity
+style={styles.icons}
+onPress={() => navigation.navigate('Details')}>
+<Icon
+name="info"
+size={60}
+color="white"
+/>
+<Text style={styles.icontext}>
+About</Text>
+</TouchableOpacity>
+</View>
+</View>
     </ScrollView>
 
 
@@ -233,11 +282,7 @@ var tempPunch=[];
                  </View>
 
 
-                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped \nPunch Total : " + punch)}>
-                 Stop Round
-                 </Text>
-                 </View>
+
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
                  fetch('http://192.168.1.53:8000/getPunchs/', {
@@ -258,7 +303,7 @@ var tempPunch=[];
                    console.error(error);
                  });
                }}>
-               Save punches
+               Stop Round
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
@@ -288,11 +333,7 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                  Start Round
                  </Text>
                  </View>
-                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
-                 Stop Round
-                 </Text>
-                 </View>
+
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
                  fetch('http://192.168.1.53:8000/getPunchs/', {
@@ -313,7 +354,7 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                    console.error(error);
                  });
                }}>
-               Save punches
+               Stop Round
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
@@ -343,11 +384,7 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                  Start Round
                  </Text>
                  </View>
-                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
-                 Stop Round
-                 </Text>
-                 </View>
+
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
                  fetch('http://192.168.1.53:8000/getPunchs/', {
@@ -368,7 +405,7 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                    console.error(error);
                  });
                }}>
-               Save punches
+               Stop Round
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
@@ -399,11 +436,7 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                  Start Round
                  </Text>
                  </View>
-                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
-                 Stop Round
-                 </Text>
-                 </View>
+
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
                  fetch('http://192.168.1.53:8000/getPunchs/', {
@@ -424,7 +457,7 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                    console.error(error);
                  });
                }}>
-               Save punches
+               Stop Round
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
@@ -476,11 +509,7 @@ function Round5Screen({ navigation, route }) {
                  Start Round
                  </Text>
                  </View>
-                   <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                 <Text style ={{fontSize:20}} onPress={() =>  alert("Round Stopped")}>
-                 Stop Round
-                 </Text>
-                 </View>
+
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
                  fetch('http://192.168.1.53:8000/getPunchs/', {
@@ -495,14 +524,14 @@ function Round5Screen({ navigation, route }) {
                  .then((json) => {
                    console.log(json.punch);
                    setRound5(json.punch);
-                   setChartData([route.params.round1,route.params.round2,route.params.round3,route.params.round4,round5])
-
+                   setChartData([route.params.round1,route.params.round2,route.params.round3,route.params.round4,json.punch])
+                   console.log(chartData);
                  })
                  .catch((error) => {
                    console.error(error);
                  });
                }}>
-               Save punches
+               Stop Round
                </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
@@ -518,11 +547,7 @@ function Round5Screen({ navigation, route }) {
         View Stats
         </Text>
       </View>
-      <View style={{ padding: 5, backgroundColor: '#FFA500', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style={{fontSize:20}} onPress={() => navigation.navigate('Details', {paramName:name, paramKey:chartData})}>
-        View Details
-        </Text>
-      </View>
+
     </View>
   );
 }
@@ -576,13 +601,42 @@ function DetailsScreen({ navigation, route }) {
                  .catch((error) => {
                    console.error(error);
                  });
+                 navigation.navigate('ChartTheData',{ userDetails:chartData});
                }}>
                  Pull Database Details
                  </Text>
 
                  </View>
                  <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                   <Text style ={{fontSize:20}} onPress={() =>navigation.navigate('ChartTheData',{ userDetails:chartData})}>
+                   <Text style ={{fontSize:20}} onPress={() =>{
+                   fetch('http://192.168.1.53:8000/getAppPosts/', {
+                     method: 'POST',
+                     headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify({search})
+                 })
+                 .then((response) => response.json())
+                 .then((json) => {
+                   console.log(json.posts[0].punchInfo);
+                  // var i =json.posts.length -1;
+                  setChartData(json.posts[0].punchInfo);
+                  // setResults(json.posts[0].opponentName]);
+                  // setChartData(json.posts[0].punchInfo);
+                   console.log(json.posts.length);
+
+
+                  // setResults(tempArray);
+                  // console.log(results);
+
+                 })
+                 .catch((error) => {
+                   console.error(error);
+                 });
+                 navigation.navigate('ChartTheData',{ userDetails:chartData});
+               }
+             }>
                      View The Charts
                      </Text>
                      </View>
@@ -620,14 +674,14 @@ console.log(route.params.userDetails);
     <View style={{ flex: 1,
                    justifyContent: 'center',
                    alignItems: 'center',
-                   backgroundColor: '#1e90ff',
+                   backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
       <View style={{ backgroundColor: '#ffffff', borderColor: '#000000', borderWidth: 2, padding: 2 }} >
         <MyChart dataToChart = {lineData} > </MyChart>
       </View>
-      <View style={{ padding: 5, marginTop: 10, backgroundColor: '#c0c0c0', borderColor: '#6060ff', borderWidth: 2, borderRadius: 10, }} >
-        <Text onPress={() => navigation.goBack()}>
+      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+        <Text style ={{fontSize:20}} onPress={() => navigation.navigate('Home')}>
           Done (back to Home screen)
         </Text>
       </View>
@@ -756,9 +810,9 @@ export default function App() {
           component={ChartTheData}
           options={{
             title: 'Chart',
-            backgroundColor: '#1e90ff',
+            backgroundColor: '#778899',
             headerStyle: {
-              backgroundColor: '#000080',
+              backgroundColor: '#778899',
               height: 50,
             },
             headerTintColor: '#fff',
@@ -774,7 +828,7 @@ export default function App() {
             title: 'Details',
             backgroundColor: '#1e90ff',
             headerStyle: {
-              backgroundColor: '#000080',
+              backgroundColor: '#778899',
               height: 50,
             },
             headerTintColor: '#fff',
@@ -801,4 +855,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     elevation: 2
   },
+  icons: {
+   alignItems: "center",
+   justifyContent:"flex-end",
+   padding: 20
+ },
+ icontext: {
+  color:'#fff'
+}
 });
