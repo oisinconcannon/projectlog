@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { MyPicker } from './MyPicker';
 import { MyChart } from './MyChart';
 import { YellowBox } from 'react-native';
+import { FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 YellowBox.ignoreWarnings([ // https://reactnavigation.org/docs/troubleshooting/
@@ -98,78 +99,45 @@ function HomeScreen({ navigation, route }) {
       <Text style ={{fontSize:40, color:'#fff',margin:10}}>
         Boxing Analyser
       </Text>
-
-        <Image source={require('./box4.jpg')}
-               style={{width: 550, height: 350}} />
-        <Text style={{ margin: 10 ,color:'#fff',padding: 5,backgroundColor: '#778899',borderColor: '#fff', borderWidth: 2, borderRadius: 10}}>Monitor your punch Output using the Boxing Analyser</Text>
+      <Text style={{ margin: 10 ,color:'#fff',padding: 5,backgroundColor: '#778899',borderColor: '#fff', borderWidth: 2, borderRadius: 10}}>Welcome to the Boxing Analyser</Text>
+        <Image source={require('./ring.png')}
+               style={{width: 300, height: 300,color:'#fff'}} />
 
       </View>
 
-        <View style={{flexDirection:'row'}}>
-      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style ={{fontSize:20}} onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
-          Select Fighter
-        </Text>
-      </View>
 
 
-      <View style={{ padding: 5, backgroundColor: '#ffff00', marginBottom: 10, marginTop: 10, marginLeft: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-    <Text style ={{fontSize:20}} onPress={() => navigation.navigate('Details', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
-    Search Bouts
-    </Text>
-    </View>
-      </View>
 
 </View>
-<View style={{alignItems:'center'}}>
-<View style={{flexDirection:'row', padding:5}}>
-<TouchableOpacity
-style={styles.icons}
-onPress={navigation.navigate('Home')}>
-<Icon
-name="home"
-size={60}
-color="white"
-/>
-<Text style={styles.icontext}>
-Home</Text>
-</TouchableOpacity>
-<TouchableOpacity
-style={styles.icons}
-onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}>
-<Icon
-name="play"
-size={60}
-color="white"
-/>
-<Text style={styles.icontext}>
-Start</Text>
-</TouchableOpacity>
-<TouchableOpacity
-style={styles.icons}
-onPress={() => navigation.navigate('Details')}>
-<Icon
-name="signal"
-size={60}
-color="white"
-/>
-<Text style={styles.icontext}>
-Stats</Text>
-</TouchableOpacity>
-<TouchableOpacity
-style={styles.icons}
-onPress={() => navigation.navigate('Details')}>
-<Icon
-name="info"
-size={60}
-color="white"
-/>
-<Text style={styles.icontext}>
-About</Text>
-</TouchableOpacity>
-</View>
-</View>
+
+
+<FAB
+    style={styles.fab}
+    large
+    icon="home-outline"
+    onPress={() => console.log('Pressed')}
+  />
+  <FAB
+      style={styles.fab1}
+      large
+      icon="boxing-glove"
+      onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+    />
+    <FAB
+        style={styles.fab2}
+        large
+        icon="chart-line"
+        onPress={() => navigation.navigate('Details')}
+      />
+      <FAB
+          style={styles.fab3}
+          large
+          icon="information-outline"
+          onPress={() => navigation.navigate('Details')}
+        />
+
     </ScrollView>
+
 
 
   );
@@ -854,6 +822,34 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginLeft: 10,
     elevation: 2
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    backgroundColor:'#D3D3D3',
+    left:"2%",
+    bottom: "0%",
+  },
+  fab1: {
+    position: 'absolute',
+    backgroundColor:'#D3D3D3',
+    margin: 16,
+    left:'26%',
+    bottom: "0%",
+  },
+  fab2: {
+    position: 'absolute',
+    backgroundColor:'#D3D3D3',
+    margin: 16,
+    right:"26%",
+    bottom: "0%",
+  },
+  fab3: {
+    position: 'absolute',
+    backgroundColor:'#D3D3D3',
+    margin: 16,
+    right:'2%',
+    bottom: "0%",
   },
   icons: {
    alignItems: "center",
