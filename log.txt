@@ -95,3 +95,6 @@ Punch count working for all rounds
 Search working for latest bout
 have the data saving correctly
 added a bottom navigation bar, allows user to navigate through screens using the icons
+
+Week 31:
+Added FABs aswell as some styling
