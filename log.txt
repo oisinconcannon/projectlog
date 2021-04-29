@@ -98,3 +98,4 @@ added a bottom navigation bar, allows user to navigate through screens using the
 
 Week 31:
 Added FABs aswell as some styling
+added picker to display last 5 bouts in search and allow the user to select one from the 5
