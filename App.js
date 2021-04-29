@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TextInput, View, Button, Image, StyleSheet,ScrollView,TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, Button, Image, StyleSheet,ScrollView,TouchableOpacity,Picker } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MyPicker } from './MyPicker';
@@ -7,11 +7,11 @@ import { MyChart } from './MyChart';
 import { YellowBox } from 'react-native';
 import { FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 YellowBox.ignoreWarnings([ // https://reactnavigation.org/docs/troubleshooting/
   'Non-serializable values were found in the navigation state',
 ]);
-
 
 function HomeScreen({ navigation, route }) {
   const [selectedName, setSelectedName] = React.useState(' ');
@@ -22,8 +22,6 @@ function HomeScreen({ navigation, route }) {
   const [gym, setGym] = React.useState(' ');
   const [opponent, setOpponent] = React.useState(' ');
   const [dbData, setDbData] = React.useState('');
-
-
 
   useEffect(() => {
     fetch('http://192.168.1.53:8000/getAppNames', {
@@ -100,22 +98,16 @@ function HomeScreen({ navigation, route }) {
         Boxing Analyser
       </Text>
       <Text style={{ margin: 10 ,color:'#fff',padding: 5,backgroundColor: '#778899',borderColor: '#fff', borderWidth: 2, borderRadius: 10}}>Welcome to the Boxing Analyser</Text>
-        <Image source={require('./ring.png')}
+        <Image source={require('./images/ring.png')}
                style={{width: 300, height: 300,color:'#fff'}} />
-
       </View>
-
-
-
-
 </View>
-
 
 <FAB
     style={styles.fab}
     large
     icon="home-outline"
-    onPress={() => console.log('Pressed')}
+    onPress={() => navigation.navigate('Home')}
   />
   <FAB
       style={styles.fab1}
@@ -133,13 +125,10 @@ function HomeScreen({ navigation, route }) {
           style={styles.fab3}
           large
           icon="information-outline"
-          onPress={() => navigation.navigate('Details')}
+          onPress={() => navigation.navigate('About')}
         />
 
     </ScrollView>
-
-
-
   );
 }
 
@@ -162,9 +151,6 @@ const passSelectedData = (selectedData, dataType) => {
   if(dataType == 'flyTo'){
     setSelectedFlyTo(selectedData);
   }
-
-
-
 };
 let fightData = {
         name: name,
@@ -185,9 +171,11 @@ let fightData = {
                    backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
-
-
-
+                 <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                 <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1',{paramKey:name,userDetails:fightData})}>
+                 Start Round
+                 </Text>
+                 </View>
       <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
       <TextInput
        placeholder="Enter Name"
@@ -220,11 +208,32 @@ let fightData = {
     <MyPicker callBackFunction = {passSelectedData} dataToLoad = {route.params.theDbData} >
     </MyPicker>
 
-    <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-  <Text style ={{fontSize:20}}onPress={() => navigation.navigate('Round1',{paramKey:name,userDetails:fightData})}>
-    Start Round
-  </Text>
-  </View>
+
+  <FAB
+      style={styles.fab}
+      large
+      icon="home-outline"
+      onPress={() => navigation.navigate('Home')}
+    />
+    <FAB
+        style={styles.fab1}
+        large
+        icon="boxing-glove"
+        onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+      />
+      <FAB
+          style={styles.fab2}
+          large
+          icon="chart-line"
+          onPress={() => navigation.navigate('Details')}
+        />
+        <FAB
+            style={styles.fab3}
+            large
+            icon="information-outline"
+            onPress={() => navigation.navigate('Details')}
+          />
+
     </View>
   );
 }
@@ -242,44 +251,63 @@ var tempPunch=[];
                    backgroundColor: '#778899',
                    paddingBottom: 50
                  }}>
-                   <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                 <Text style ={{fontSize:20}} onPress={() => alert("Round Started")}>
-                 Start Round
-                 </Text>
-
+                 <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+                    <Text style ={{fontSize:20}} onPress={() => alert("Round Started")}>
+                    Start Round
+                    </Text>
                  </View>
-
-
-
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-               <Text style ={{fontSize:20}} onPress={() => {
-                 fetch('http://192.168.1.53:8000/getPunchs/', {
-                   method: 'POST',
-                   headers: {
-                     Accept: 'application/json',
-                     'Content-Type': 'application/json'
-                   },
-                   body: JSON.stringify()
-                 })
-                 .then((response) => response.json())
-                 .then((json) => {
-                   console.log(json.punch);
-                   setRound1(json.punch);
-
-                 })
-                 .catch((error) => {
-                   console.error(error);
-                 });
-               }}>
-               Stop Round
-               </Text>
+                    <Text style ={{fontSize:20}} onPress={() => {
+                      fetch('http://192.168.1.53:8000/getPunchs/', {
+                        method: 'POST',
+                        headers: {
+                          Accept: 'application/json',
+                          'Content-Type': 'application/json'
+                        },
+                          body: JSON.stringify()
+                        })
+                        .then((response) => response.json())
+                        .then((json) => {
+                          console.log(json.punch);
+                          setRound1(json.punch);
+                        })
+                        .catch((error) => {
+                          console.error(error);
+                        });
+                      }}>
+                      Stop Round
+                      </Text>
                </View>
       <View style={{ padding: 5, backgroundColor: '#1E90FF', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
         <Text style={{fontSize:20}} onPress={() => navigation.navigate('Round2', {paramName:name, round1: round1,userDetails:fightData})}>
         Next Round
         </Text>
       </View>
-        <Text>{this}</Text>
+      <FAB
+          style={styles.fab}
+          large
+          icon="home-outline"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <FAB
+            style={styles.fab1}
+            large
+            icon="boxing-glove"
+            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+          />
+          <FAB
+              style={styles.fab2}
+              large
+              icon="chart-line"
+              onPress={() => navigation.navigate('Details')}
+            />
+            <FAB
+                style={styles.fab3}
+                large
+                icon="information-outline"
+                onPress={() => navigation.navigate('Details')}
+              />
+
     </View>
   );
 }
@@ -316,7 +344,6 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                  .then((json) => {
                    console.log(json.punch);
                    setRound2(json.punch);
-
                  })
                  .catch((error) => {
                    console.error(error);
@@ -330,6 +357,31 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
         Next Round
         </Text>
       </View>
+      <FAB
+          style={styles.fab}
+          large
+          icon="home-outline"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <FAB
+            style={styles.fab1}
+            large
+            icon="boxing-glove"
+            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+          />
+          <FAB
+              style={styles.fab2}
+              large
+              icon="chart-line"
+              onPress={() => navigation.navigate('Details')}
+            />
+            <FAB
+                style={styles.fab3}
+                large
+                icon="information-outline"
+                onPress={() => navigation.navigate('Details')}
+              />
+
     </View>
   );
 }
@@ -367,7 +419,6 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                  .then((json) => {
                    console.log(json.punch);
                    setRound3(json.punch);
-
                  })
                  .catch((error) => {
                    console.error(error);
@@ -381,6 +432,31 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
         Next Round
         </Text>
       </View>
+      <FAB
+          style={styles.fab}
+          large
+          icon="home-outline"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <FAB
+            style={styles.fab1}
+            large
+            icon="boxing-glove"
+            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+          />
+          <FAB
+              style={styles.fab2}
+              large
+              icon="chart-line"
+              onPress={() => navigation.navigate('Details')}
+            />
+            <FAB
+                style={styles.fab3}
+                large
+                icon="information-outline"
+                onPress={() => navigation.navigate('Details')}
+              />
+
     </View>
   );
 }
@@ -404,7 +480,6 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                  Start Round
                  </Text>
                  </View>
-
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
                  fetch('http://192.168.1.53:8000/getPunchs/', {
@@ -419,7 +494,6 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
                  .then((json) => {
                    console.log(json.punch);
                    setRound4(json.punch);
-
                  })
                  .catch((error) => {
                    console.error(error);
@@ -433,6 +507,31 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
         Next Round
         </Text>
       </View>
+      <FAB
+          style={styles.fab}
+          large
+          icon="home-outline"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <FAB
+            style={styles.fab1}
+            large
+            icon="boxing-glove"
+            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+          />
+          <FAB
+              style={styles.fab2}
+              large
+              icon="chart-line"
+              onPress={() => navigation.navigate('Details')}
+            />
+            <FAB
+                style={styles.fab3}
+                large
+                icon="information-outline"
+                onPress={() => navigation.navigate('Details')}
+              />
+
     </View>
   );
 }
@@ -477,7 +576,6 @@ function Round5Screen({ navigation, route }) {
                  Start Round
                  </Text>
                  </View>
-
                  <View style={{ padding: 5, backgroundColor: '#DC143C', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                <Text style ={{fontSize:20}} onPress={() => {
                  fetch('http://192.168.1.53:8000/getPunchs/', {
@@ -515,6 +613,30 @@ function Round5Screen({ navigation, route }) {
         View Stats
         </Text>
       </View>
+      <FAB
+          style={styles.fab}
+          large
+          icon="home-outline"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <FAB
+            style={styles.fab1}
+            large
+            icon="boxing-glove"
+            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+          />
+          <FAB
+              style={styles.fab2}
+              large
+              icon="chart-line"
+              onPress={() => navigation.navigate('Details')}
+            />
+            <FAB
+                style={styles.fab3}
+                large
+                icon="information-outline"
+                onPress={() => navigation.navigate('Details')}
+              />
 
     </View>
   );
@@ -523,9 +645,17 @@ function DetailsScreen({ navigation, route }) {
   const [dbDataGet, setDbDataGet] = React.useState('');
   const [search, setSearch] = React.useState('');
   const [chartData, setChartData] = React.useState('');
-
-
-
+  const [selectedValue, setSelectedValue] = useState(p2);
+  const [bout1, setBout1] = useState('');
+  const [bout2, setBout2] = useState('');
+  const [bout3, setBout3] = useState('');
+  const [bout4, setBout4] = useState('');
+  const [bout5, setBout5] = useState('');
+  const [p1, setP1] = useState([]);
+  const [p2, setP2] = useState([]);
+  const [p3, setP3] = useState([]);
+  const [p4, setP4] = useState([]);
+  const [p5, setP5] = useState([]);
 
   return (
     <View style={{ flex: 1,
@@ -554,70 +684,77 @@ function DetailsScreen({ navigation, route }) {
                  })
                  .then((response) => response.json())
                  .then((json) => {
-                   console.log(json.posts[0].punchInfo);
-                  // var i =json.posts.length -1;
-                  setChartData(json.posts[0].punchInfo);
-                  // setResults(json.posts[0].opponentName]);
-                  // setChartData(json.posts[0].punchInfo);
-                   console.log(json.posts.length);
-
-
-                  // setResults(tempArray);
-                  // console.log(results);
+                  console.log(json.posts.length);
+                  console.log(json.posts);
+                  setBout1(json.posts[0].dateTime);
+                  setBout2(json.posts[1].dateTime);
+                  setBout3(json.posts[2].dateTime);
+                  setBout4(json.posts[3].dateTime);
+                  setBout5(json.posts[4].dateTime);
+                  setP1(json.posts[0].punchInfo);
+                  setP2(json.posts[1].punchInfo);
+                  setP3(json.posts[2].punchInfo);
+                  setP4(json.posts[3].punchInfo);
+                  setP5(json.posts[4].punchInfo);
 
                  })
                  .catch((error) => {
                    console.error(error);
+                  console.log("Invalid Search");
                  });
-                 navigation.navigate('ChartTheData',{ userDetails:chartData});
                }}>
                  Pull Database Details
                  </Text>
+                 </View>
+                 <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#778899', borderWidth: 2, borderRadius: 10, }}>
+                 <Picker
+         selectedValue={selectedValue}
+         style={{ height: 50, width: 150 }}
+         onValueChange={(itemValue, itemIndex) => setChartData(itemValue)}
+       >
+         <Picker.Item label={bout1} value={p1} />
+         <Picker.Item label={bout2} value={p2} />
+         <Picker.Item label={bout3} value={p3} />
+         <Picker.Item label={bout4} value={p4} />
+         <Picker.Item label={bout5} value={p5} />
+       </Picker>
 
                  </View>
                  <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-                   <Text style ={{fontSize:20}} onPress={() =>{
-                   fetch('http://192.168.1.53:8000/getAppPosts/', {
-                     method: 'POST',
-                     headers: {
-                     Accept: 'application/json',
-                     'Content-Type': 'application/json'
-                   },
-                   body: JSON.stringify({search})
-                 })
-                 .then((response) => response.json())
-                 .then((json) => {
-                   console.log(json.posts[0].punchInfo);
-                  // var i =json.posts.length -1;
-                  setChartData(json.posts[0].punchInfo);
-                  // setResults(json.posts[0].opponentName]);
-                  // setChartData(json.posts[0].punchInfo);
-                   console.log(json.posts.length);
+                   <Text style ={{fontSize:20}} onPress={() =>{navigation.navigate('ChartTheData',{ userDetails:chartData});}}>
 
-
-                  // setResults(tempArray);
-                  // console.log(results);
-
-                 })
-                 .catch((error) => {
-                   console.error(error);
-                 });
-                 navigation.navigate('ChartTheData',{ userDetails:chartData});
-               }
-             }>
                      View The Charts
                      </Text>
                      </View>
-
+                     <FAB
+                         style={styles.fab}
+                         large
+                         icon="home-outline"
+                         onPress={() => navigation.navigate('Home')}
+                       />
+                       <FAB
+                           style={styles.fab1}
+                           large
+                           icon="boxing-glove"
+                           onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
+                         />
+                         <FAB
+                             style={styles.fab2}
+                             large
+                             icon="chart-line"
+                             onPress={() => navigation.navigate('Details')}
+                           />
+                           <FAB
+                               style={styles.fab3}
+                               large
+                               icon="information-outline"
+                               onPress={() => navigation.navigate('Details')}
+                             />
 
     </View>
   );
 }
 function ChartTheData({ navigation, route }) {
-//  if(route.params.show == false){
-  //  return null;
-  //}
-
 
 const [chartData, setChartData] = React.useState(route.params.userDetails);
 console.log(chartData);
@@ -650,10 +787,78 @@ console.log(route.params.userDetails);
       </View>
       <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
         <Text style ={{fontSize:20}} onPress={() => navigation.navigate('Home')}>
-          Done (back to Home screen)
+          Home Screen
         </Text>
       </View>
+
     </View>
+  );
+}
+function AboutScreen({ navigation, route }) {
+
+
+  return (
+    <ScrollView style={{ flex: 1,
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+    <View style={{ flex: 1,
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   backgroundColor: '#778899',
+                   paddingBottom: 50
+                 }}>
+                 <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10}} >
+                    <Text style ={{fontSize:20,color:'#fff'}} >
+                    Thankyou for using 'Boxing Analyser'. I am breifly going to explain this project and my reasoning behind it.
+                    </Text>
+                 </View>
+
+                        <Image source={require('./images/box4.jpg')}
+                               style={{width: 300, height: 300,color:'#fff'}} />
+                               <Image source={require('./images/box5.jpg')}
+                                      style={{width: 300, height: 300,color:'#fff'}} />
+                                      <Image source={require('./images/box3.jpg')}
+                                             style={{width: 300, height: 300,color:'#fff'}} />
+                                             <Image source={require('./images/box6.jpg')}
+                                                    style={{width: 300, height: 300,color:'#fff'}} />
+
+                 <View style={{ padding: 5, backgroundColor: '#708090', marginBottom: 10, marginTop: 10, borderColor: '#708090', borderWidth: 2, borderRadius: 10, }} >
+                    <Text style ={{fontSize:15,color:'#fff'}} >
+                    My name is Oisin Concannon and I am a final year student studying BEng in Software and Electronic Engineering. As part of this course we were required
+                    to design, build and deliver a final year project. As I am a fighter myself in the disciplone of Kickboxing , i find it very difficult to analyse
+                    sparring rounds or even amatuer bouts. I have fought at a relatively high amatuer level with professional rules in place. I have been fortunate to
+                    compete against international opponents and I will be hoping to continue this for the foreseeable future.
+                    {'\n'}
+                    {'\n'}
+                    Physical statistics are virtually imposssible to obtain especially for amateuers and even some professionals. This gave me the idea to allow fighters
+                    across all levels analyse performance and improve punch output aswell as providing areas that require improvement.
+                    {'\n'}
+                    {'\n'}
+                    Using an accelerometer we can detect the movement of the fist which in turn can be translated to a punch once a certain value as been surpassed. The
+                    punch total is incrimented based on this and is then stored in the database alongside the users details.
+                    {'\n'}
+                    {'\n'}
+                    Above I have attached some images from my previous bouts both nationally and internationally.
+                    {'\n'}
+                    {'\n'}
+                    {'\n'}
+                    {'\n'}
+                    For an queries contact:
+                    {'\n'}
+                    Oisin Concannon
+                      {'\n'}
+                    G00347603@gmit.ie
+                      {'\n'}
+                      GMIT
+                      {'\n'}
+                      Galway
+                    </Text>
+                 </View>
+
+
+    </View>
+    </ScrollView>
   );
 }
 
@@ -794,6 +999,22 @@ export default function App() {
           component={DetailsScreen}
           options={{
             title: 'Details',
+            backgroundColor: '#1e90ff',
+            headerStyle: {
+              backgroundColor: '#778899',
+              height: 50,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+        />
+        <Stack.Screen
+          name="About"
+          component={AboutScreen}
+          options={{
+            title: 'About',
             backgroundColor: '#1e90ff',
             headerStyle: {
               backgroundColor: '#778899',
