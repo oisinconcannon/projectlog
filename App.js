@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TextInput, View, Button, Image, StyleSheet,ScrollView,TouchableOpacity,Picker } from 'react-native';
+import { Text, TextInput, View, Button, Image, StyleSheet,ScrollView,TouchableOpacity,Picker,Modal } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MyPicker } from './MyPicker';
@@ -98,11 +98,11 @@ function HomeScreen({ navigation, route }) {
         Boxing Analyser
       </Text>
       <Text style={{ margin: 10 ,color:'#fff',padding: 5,backgroundColor: '#778899',borderColor: '#fff', borderWidth: 2, borderRadius: 10}}>Welcome to the Boxing Analyser</Text>
-        <Image source={require('./images/ring.png')}
+        <Image source={require('./images/logo.png')}
                style={{width: 300, height: 300,color:'#fff'}} />
       </View>
 </View>
-
+<View style={{paddingBottom:30}}></View>
 <FAB
     style={styles.fab}
     large
@@ -176,28 +176,28 @@ let fightData = {
                  Start Round
                  </Text>
                  </View>
-      <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
       <TextInput
        placeholder="Enter Name"
        onChangeText={setName}
        value={name}
       />
       </View>
-      <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+      <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
       <TextInput
        placeholder="Enter Hometown"
        onChangeText={setAddress}
        value={address}
      />
      </View>
-     <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+     <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
      <TextInput
       placeholder="Enter Name of Gym"
       onChangeText={setGym}
       value={gym}
     />
     </View>
-    <View style={{ padding: 5, backgroundColor: '#778899', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+    <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
     <TextInput
      placeholder="Enter Opponent Name"
      onChangeText={setOpponent}
@@ -215,24 +215,7 @@ let fightData = {
       icon="home-outline"
       onPress={() => navigation.navigate('Home')}
     />
-    <FAB
-        style={styles.fab1}
-        large
-        icon="boxing-glove"
-        onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
-      />
-      <FAB
-          style={styles.fab2}
-          large
-          icon="chart-line"
-          onPress={() => navigation.navigate('Details')}
-        />
-        <FAB
-            style={styles.fab3}
-            large
-            icon="information-outline"
-            onPress={() => navigation.navigate('Details')}
-          />
+
 
     </View>
   );
@@ -289,24 +272,6 @@ var tempPunch=[];
           icon="home-outline"
           onPress={() => navigation.navigate('Home')}
         />
-        <FAB
-            style={styles.fab1}
-            large
-            icon="boxing-glove"
-            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
-          />
-          <FAB
-              style={styles.fab2}
-              large
-              icon="chart-line"
-              onPress={() => navigation.navigate('Details')}
-            />
-            <FAB
-                style={styles.fab3}
-                large
-                icon="information-outline"
-                onPress={() => navigation.navigate('Details')}
-              />
 
     </View>
   );
@@ -363,24 +328,7 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
           icon="home-outline"
           onPress={() => navigation.navigate('Home')}
         />
-        <FAB
-            style={styles.fab1}
-            large
-            icon="boxing-glove"
-            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
-          />
-          <FAB
-              style={styles.fab2}
-              large
-              icon="chart-line"
-              onPress={() => navigation.navigate('Details')}
-            />
-            <FAB
-                style={styles.fab3}
-                large
-                icon="information-outline"
-                onPress={() => navigation.navigate('Details')}
-              />
+
 
     </View>
   );
@@ -438,24 +386,6 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
           icon="home-outline"
           onPress={() => navigation.navigate('Home')}
         />
-        <FAB
-            style={styles.fab1}
-            large
-            icon="boxing-glove"
-            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
-          />
-          <FAB
-              style={styles.fab2}
-              large
-              icon="chart-line"
-              onPress={() => navigation.navigate('Details')}
-            />
-            <FAB
-                style={styles.fab3}
-                large
-                icon="information-outline"
-                onPress={() => navigation.navigate('Details')}
-              />
 
     </View>
   );
@@ -513,24 +443,6 @@ const [fightData, setFightData] = React.useState(route.params.userDetails);
           icon="home-outline"
           onPress={() => navigation.navigate('Home')}
         />
-        <FAB
-            style={styles.fab1}
-            large
-            icon="boxing-glove"
-            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
-          />
-          <FAB
-              style={styles.fab2}
-              large
-              icon="chart-line"
-              onPress={() => navigation.navigate('Details')}
-            />
-            <FAB
-                style={styles.fab3}
-                large
-                icon="information-outline"
-                onPress={() => navigation.navigate('Details')}
-              />
 
     </View>
   );
@@ -619,43 +531,29 @@ function Round5Screen({ navigation, route }) {
           icon="home-outline"
           onPress={() => navigation.navigate('Home')}
         />
-        <FAB
-            style={styles.fab1}
-            large
-            icon="boxing-glove"
-            onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
-          />
-          <FAB
-              style={styles.fab2}
-              large
-              icon="chart-line"
-              onPress={() => navigation.navigate('Details')}
-            />
-            <FAB
-                style={styles.fab3}
-                large
-                icon="information-outline"
-                onPress={() => navigation.navigate('Details')}
-              />
 
     </View>
   );
 }
 function DetailsScreen({ navigation, route }) {
+  const [modalVisible, setModalVisible] = useState(false);
   const [dbDataGet, setDbDataGet] = React.useState('');
   const [search, setSearch] = React.useState('');
-  const [chartData, setChartData] = React.useState('');
+  const [chartData, setChartData] = React.useState([]);
   const [selectedValue, setSelectedValue] = useState(p2);
   const [bout1, setBout1] = useState('');
   const [bout2, setBout2] = useState('');
   const [bout3, setBout3] = useState('');
   const [bout4, setBout4] = useState('');
   const [bout5, setBout5] = useState('');
-  const [p1, setP1] = useState([]);
-  const [p2, setP2] = useState([]);
-  const [p3, setP3] = useState([]);
-  const [p4, setP4] = useState([]);
-  const [p5, setP5] = useState([]);
+  const [p1, setP1] = useState('');
+  const [p2, setP2] = useState('');
+  const [p3, setP3] = useState('');
+  const [p4, setP4] = useState('');
+  const [p5, setP5] = useState('');
+
+ var splitTemp ;
+
 
   return (
     <View style={{ flex: 1,
@@ -667,6 +565,7 @@ function DetailsScreen({ navigation, route }) {
                  <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#778899', borderWidth: 2, borderRadius: 10, }} >
 
                  <TextInput
+                  style ={{fontSize:20}}
                   placeholder="Enter Name of Fighter"
                   onChangeText={search => setSearch(search)}
                   value={search}
@@ -674,6 +573,7 @@ function DetailsScreen({ navigation, route }) {
                 </View>
                    <View style={{ padding: 5, backgroundColor: '#FF8C00', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                  <Text style ={{fontSize:20}} onPress={() => {
+
                    fetch('http://192.168.1.53:8000/getAppPosts/', {
                      method: 'POST',
                      headers: {
@@ -696,7 +596,12 @@ function DetailsScreen({ navigation, route }) {
                   setP3(json.posts[2].punchInfo);
                   setP4(json.posts[3].punchInfo);
                   setP5(json.posts[4].punchInfo);
-
+                  console.log(json.posts[0].punchInfo);
+                  console.log(p2);
+                  console.log(p3);
+                  console.log(p4);
+                  console.log(p5);
+                  setModalVisible(true);
                  })
                  .catch((error) => {
                    console.error(error);
@@ -707,10 +612,24 @@ function DetailsScreen({ navigation, route }) {
                  </Text>
                  </View>
                  <View style={{ padding: 5, backgroundColor: '#fff', marginBottom: 10, marginTop: 10, borderColor: '#778899', borderWidth: 2, borderRadius: 10, }}>
+                 <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                 <Modal
+                   animationType="slide"
+                   transparent={true}
+                   visible={modalVisible}
+                   onRequestClose={() => {
+
+                     Alert.alert('Modal has been closed.');
+                   }}>
                  <Picker
          selectedValue={selectedValue}
-         style={{ height: 50, width: 150 }}
-         onValueChange={(itemValue, itemIndex) => setChartData(itemValue)}
+         style={{ height: 50, width: 250 }}
+         onValueChange={(itemValue, itemIndex) =>
+         //splitTemp = itemValue.split(',');
+         setChartData(itemValue)
+
+       }
        >
          <Picker.Item label={bout1} value={p1} />
          <Picker.Item label={bout2} value={p2} />
@@ -718,11 +637,18 @@ function DetailsScreen({ navigation, route }) {
          <Picker.Item label={bout4} value={p4} />
          <Picker.Item label={bout5} value={p5} />
        </Picker>
+       <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
+         <Text style ={{fontSize:20}} onPress={() => {setModalVisible(false)}}>
+           Close
+           </Text>
+           </View>
 
+</Modal>
+</View>
+</View>
                  </View>
                  <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
                    <Text style ={{fontSize:20}} onPress={() =>{navigation.navigate('ChartTheData',{ userDetails:chartData});}}>
-
                      View The Charts
                      </Text>
                      </View>
@@ -732,24 +658,8 @@ function DetailsScreen({ navigation, route }) {
                          icon="home-outline"
                          onPress={() => navigation.navigate('Home')}
                        />
-                       <FAB
-                           style={styles.fab1}
-                           large
-                           icon="boxing-glove"
-                           onPress={() => navigation.navigate('LoadData', { show: true, homeCallBack: passSelectedData, theDbData: dbData })}
-                         />
-                         <FAB
-                             style={styles.fab2}
-                             large
-                             icon="chart-line"
-                             onPress={() => navigation.navigate('Details')}
-                           />
-                           <FAB
-                               style={styles.fab3}
-                               large
-                               icon="information-outline"
-                               onPress={() => navigation.navigate('Details')}
-                             />
+
+
 
     </View>
   );
@@ -759,6 +669,9 @@ function ChartTheData({ navigation, route }) {
 const [chartData, setChartData] = React.useState(route.params.userDetails);
 console.log(chartData);
 console.log(route.params.userDetails);
+useEffect(() => {
+  setChartData(route.params.userDetails);
+  }, []);
   let lineData = {interpolation: 'T', data: chartData,
                   nativeData: {
                     labels: ["Round1", "Round2", "Round3", "Round4", "Round5"],
@@ -785,11 +698,12 @@ console.log(route.params.userDetails);
       <View style={{ backgroundColor: '#ffffff', borderColor: '#000000', borderWidth: 2, padding: 2 }} >
         <MyChart dataToChart = {lineData} > </MyChart>
       </View>
-      <View style={{ padding: 5, backgroundColor: '#32CD32', marginBottom: 10, marginTop: 10, borderColor: '#fff', borderWidth: 2, borderRadius: 10, }} >
-        <Text style ={{fontSize:20}} onPress={() => navigation.navigate('Home')}>
-          Home Screen
-        </Text>
-      </View>
+      <FAB
+          style={styles.fab}
+          large
+          icon="home-outline"
+          onPress={() => navigation.navigate('Home')}
+        />
 
     </View>
   );
@@ -814,14 +728,9 @@ function AboutScreen({ navigation, route }) {
                     </Text>
                  </View>
 
-                        <Image source={require('./images/box4.jpg')}
-                               style={{width: 300, height: 300,color:'#fff'}} />
-                               <Image source={require('./images/box5.jpg')}
-                                      style={{width: 300, height: 300,color:'#fff'}} />
-                                      <Image source={require('./images/box3.jpg')}
-                                             style={{width: 300, height: 300,color:'#fff'}} />
-                                             <Image source={require('./images/box6.jpg')}
-                                                    style={{width: 300, height: 300,color:'#fff'}} />
+                        <Image source={require('./images/collage.png')}
+                               style={{width: 400, height: 400,color:'#fff'}} />
+
 
                  <View style={{ padding: 5, backgroundColor: '#708090', marginBottom: 10, marginTop: 10, borderColor: '#708090', borderWidth: 2, borderRadius: 10, }} >
                     <Text style ={{fontSize:15,color:'#fff'}} >
@@ -858,6 +767,7 @@ function AboutScreen({ navigation, route }) {
 
 
     </View>
+
     </ScrollView>
   );
 }
@@ -1079,5 +989,13 @@ const styles = StyleSheet.create({
  },
  icontext: {
   color:'#fff'
-}
+},
+centeredView: {
+  //flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 22,
+},
+
+
 });
