@@ -103,3 +103,4 @@ added picker to display last 5 bouts in search and allow the user to select one 
 Week 32:
 Added a new logo and also created a modal in detials screen
 Updated gantt chart
+updated arch diagram
