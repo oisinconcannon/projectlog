@@ -105,3 +105,6 @@ Added a new logo and also created a modal in detials screen
 Updated gantt chart
 updated arch diagram
 made project multifile
+
+Week 33:
+First Draft of Poster completed
