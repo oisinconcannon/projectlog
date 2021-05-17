@@ -1,0 +1,1 @@
+I have attached all the relevant code to this repository. Including the nodeJS index.js file and the accelerometer code.
